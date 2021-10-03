@@ -43,7 +43,7 @@ class CsvEventsLoaderTests(unittest.TestCase):
     def test_it_should_load_each_event_data_correctly(self):
         self.test_csv_loader.load()
 
-        events = self.loader.get_all_events()
+        events = self.test_csv_loader.get_all_events()
 
         first_event = events[0]
         self.assertEqual(first_event.data, "pipeline_id1#1")
