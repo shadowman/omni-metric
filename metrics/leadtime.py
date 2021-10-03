@@ -12,7 +12,7 @@ class LeadtimeMetricCalculator:
                 total_time += end_time - start_time
                 deploys_count += 1
         
-        average_leadtime = datetime.timedelta()
+        average_leadtime = None
         if deploys_count > 0:
             average_leadtime = total_time / deploys_count
         return average_leadtime

@@ -6,14 +6,14 @@ from metrics.leadtime import LeadtimeMetricCalculator, WorkflowEvent
 
 class LeadTimeCalculatorTests(unittest.TestCase):
 
-    def test_it_should_return_a_timespan(self):
+    def test_it_should_return_no_timespan_with_no_events(self):
         metric = LeadtimeMetricCalculator()
         
         result = metric.calculate([])
 
-        self.assertEqual(timedelta, type(result))
+        self.assertEqual(None, result)
         
-    def test_it_should_return_average_leadtime_of_event_stream(self):
+    def test_it_should_return_average_leadtime_of_event_stream_in_delta_type(self):
         metric = LeadtimeMetricCalculator()
         today  = datetime.datetime.today()
         events_stream = (WorkflowEvent(today, "build_success"),
@@ -22,6 +22,7 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         result = metric.calculate(events_stream)
 
         self.assertEqual(timedelta(seconds=10), result)
+        self.assertEqual(timedelta, type(result))
     
     def test_it_should_return_average_leadtime_from_successful_build_to_successful_deploy(self):
         metric = LeadtimeMetricCalculator()
@@ -42,7 +43,7 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         
         result = metric.calculate(events_stream)
 
-        self.assertEqual(timedelta(seconds=0), result)
+        self.assertEqual(None, result)
 
     def test_it_should_not_return_an_average_if_deploy_is_not_successful(self):
         metric = LeadtimeMetricCalculator()
@@ -53,15 +54,27 @@ class LeadTimeCalculatorTests(unittest.TestCase):
 
         result = metric.calculate(events_stream)
 
-        self.assertEqual(timedelta(seconds=0), result)
+        self.assertEqual(None, result)
 
     def test_it_should_not_return_an_average_if_build_is_not_successful(self):
         metric = LeadtimeMetricCalculator()
         today  = datetime.datetime.today()
-        events_stream = (WorkflowEvent(today, "build", "failed"),
-            WorkflowEvent(today + timedelta(seconds=10), "test", "failed"),
-            WorkflowEvent(today + timedelta(seconds=20),  "deploy", "failed"))
+        events_stream = (WorkflowEvent(today, "build_failed"),
+            WorkflowEvent(today + timedelta(seconds=10), "test_failed"),
+            WorkflowEvent(today + timedelta(seconds=20),  "deploy_failed"))
             
         result = metric.calculate(events_stream)
 
-        self.assertEqual(timedelta(seconds=0), result)
+        self.assertEqual(None, result)
+
+    def test_it_should_return_an_average_if_more_than_one_successful_build(self):
+        metric = LeadtimeMetricCalculator()
+        today  = datetime.datetime.today()
+        events_stream = (WorkflowEvent(today, "build_success"),
+            WorkflowEvent(today + timedelta(seconds=20),  "deploy_success"),
+            WorkflowEvent(today + timedelta(seconds=30), "build_success"),
+            WorkflowEvent(today + timedelta(seconds=60),  "deploy_success"))
+            
+        result = metric.calculate(events_stream)
+
+        self.assertEqual(timedelta(seconds=25), result)
