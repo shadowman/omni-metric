@@ -16,29 +16,29 @@ class LeadTimeCalculatorTests(unittest.TestCase):
     def test_it_should_return_average_leadtime_of_event_stream(self):
         metric = LeadtimeMetricCalculator()
         today  = datetime.datetime.today()
-        events_stream = (WorkflowEvent(today, "build", "success"),
-            WorkflowEvent(today + timedelta(seconds=10),  "deploy", "success"))
+        events_stream = (WorkflowEvent(today, "build_success"),
+            WorkflowEvent(today + timedelta(seconds=10),  "deploy_success"))
         
         result = metric.calculate(events_stream)
 
         self.assertEqual(timedelta(seconds=10), result)
     
-    def test_it_should_return_average_leadtime_from_build_to_deploy(self):
+    def test_it_should_return_average_leadtime_from_successful_build_to_successful_deploy(self):
         metric = LeadtimeMetricCalculator()
         today  = datetime.datetime.today()
-        events_stream = (WorkflowEvent(today, "build", "success"),
-            WorkflowEvent(today + timedelta(seconds=10), "test", "success"),
-            WorkflowEvent(today + timedelta(seconds=20),  "deploy", "success"))
+        events_stream = (WorkflowEvent(today, "build_success"),
+            WorkflowEvent(today + timedelta(seconds=10), "test_success"),
+            WorkflowEvent(today + timedelta(seconds=20),  "deploy_success"))
         
         result = metric.calculate(events_stream)
 
         self.assertEqual(timedelta(seconds=20), result)
 
-    def test_it_should_not_return_an_average_if_no_deploy_is_found(self):
+    def test_it_should_not_return_an_average_if_no_successful_deploy_is_found(self):
         metric = LeadtimeMetricCalculator()
         today  = datetime.datetime.today()
-        events_stream = (WorkflowEvent(today, "build", "success"),
-            WorkflowEvent(today + timedelta(seconds=10), "test", "success"))
+        events_stream = (WorkflowEvent(today, "build_success"),
+            WorkflowEvent(today + timedelta(seconds=10), "test_failed"))
         
         result = metric.calculate(events_stream)
 

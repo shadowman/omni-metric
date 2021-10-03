@@ -5,9 +5,9 @@ class LeadtimeMetricCalculator:
         total_time = datetime.timedelta()
         deploys_count = 0
         for event in events:
-            if event.name == "build" and event.data == "success":
+            if event.name == "build_success":
                 start_time = event.datetime
-            if event.name == "deploy" and event.data == "success":
+            if event.name == "deploy_success":
                 end_time = event.datetime
                 total_time += end_time - start_time
                 deploys_count += 1
@@ -18,7 +18,7 @@ class LeadtimeMetricCalculator:
         return average_leadtime
 
 class WorkflowEvent:
-    def __init__(self, datetime, name, data):
+    def __init__(self, datetime=datetime.datetime.today(), name="event", data=None):
         self.datetime = datetime
         self.name = name
         self.data = data
