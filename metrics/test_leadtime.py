@@ -15,10 +15,21 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         
     def test_it_should_return_average_leadtime_of_event_stream(self):
         metric = LeadtimeMetricCalculator()
-        events_stream = (WorkflowEvent(datetime.datetime.today(), "build", "success"),
-            WorkflowEvent(datetime.datetime.today() + timedelta(seconds=10),  "deploy", "success"))
+        today  = datetime.datetime.today()
+        events_stream = (WorkflowEvent(today, "build", "success"),
+            WorkflowEvent(today + timedelta(seconds=10),  "deploy", "success"))
         
         result = metric.calculate(events_stream)
 
         self.assertEqual(timedelta(seconds=10), result)
     
+    def test_it_should_return_average_leadtime_from_build_to_deploy(self):
+        metric = LeadtimeMetricCalculator()
+        today  = datetime.datetime.today()
+        events_stream = (WorkflowEvent(today, "build", "success"),
+            WorkflowEvent(today + timedelta(seconds=10), "test", "success"),
+            WorkflowEvent(today + timedelta(seconds=20),  "deploy", "success"))
+        
+        result = metric.calculate(events_stream)
+
+        self.assertEqual(timedelta(seconds=20), result)
