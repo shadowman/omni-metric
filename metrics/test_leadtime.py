@@ -78,3 +78,15 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         result = metric.calculate(events_stream)
 
         self.assertEqual(timedelta(seconds=25), result)
+    
+    def test_it_should_only_look_at_events_from_the_same_pipeline_execution(self):
+        metric = LeadtimeMetricCalculator()
+        today  = datetime.datetime.today()
+        events_stream = (WorkflowEvent(today, "build_success", "pipeline_id1"),
+            WorkflowEvent(today + timedelta(seconds=30), "build_success", "pipeline_id2"),
+            WorkflowEvent(today + timedelta(seconds=40),  "deploy_success", "pipeline_id1"),
+            WorkflowEvent(today + timedelta(seconds=60),  "deploy_success", "pipeline_id2"))
+            
+        result = metric.calculate(events_stream)
+
+        self.assertEqual(timedelta(seconds=35), result)
