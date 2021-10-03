@@ -3,7 +3,7 @@ import omnimetric
 import io
 from cli import tests 
 from cli.app import Abort
-from contextlib import redirect_stderr, redirect_stdout
+from contextlib import redirect_stdout
 
 
 
