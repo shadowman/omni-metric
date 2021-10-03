@@ -10,6 +10,11 @@ class CsvEventsLoaderTests(unittest.TestCase):
         super().setUp()
         self.loader = CsvEventsLoader("./data/sample.csv")
 
+    def test_it_should_load_a_parametrized_file(self):
+        loader = CsvEventsLoader("test")
+        self.assertEqual(loader.file_path, "test")
+
+
     def test_it_should_load_each_row_as_a_workflow_event(self):
         self.loader.load()
 

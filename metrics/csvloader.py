@@ -1,20 +1,22 @@
 
 import csv
 import datetime
+from os.path import exists
+
 
 from metrics.leadtime import WorkflowEvent
 
 class CsvEventsLoader:
     def __init__(self, file = None) -> None:
-        self.file = file
+        self.file_path = file
 
     def load(self):
-        if self.file == None:
-            raise FileNotFoundError()
+        if not exists(self.file_path):
+            raise FileNotFoundError("Please check that the file path provided is correct.")
         
         self._events = []
 
-        with open(self.file, newline='') as csvfile:
+        with open(self.file_path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 event_datetime = datetime.datetime.fromtimestamp(int(row["datetime"]))
