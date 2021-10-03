@@ -1,4 +1,4 @@
-datetime,event_name,status
-1632860031,build,success
-1632860035,test,success
-1632860041,deploy,success
+datetime,event_name,data
+1632860031,build_success,
+1632860035,test_success,
+1632860041,deploy_success,
