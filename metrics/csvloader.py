@@ -1,9 +1,29 @@
 
+import csv
+import datetime
+
 from metrics.leadtime import WorkflowEvent
 
 class CsvEventsLoader:
+    def __init__(self, file = None) -> None:
+        self.file = file
 
     def load(self):
-        pass
+        if self.file == None:
+            raise FileNotFoundError()
+        
+        self._events = []
+
+        with open(self.file, newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                event_datetime = datetime.datetime.fromtimestamp(int(row["datetime"]))
+                event_name = row["event_name"]
+                event_data = row["data"]
+                
+                event = WorkflowEvent(event_datetime, event_name, event_data)
+
+                self._events.append(event)
+
     def get_all_events(self):
-        return [WorkflowEvent(name="build_success", data="pipeline_id1#1"), WorkflowEvent(), WorkflowEvent()]
+        return self._events
