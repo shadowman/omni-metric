@@ -29,19 +29,19 @@ class TestOmniMetricCommandLineApp(tests.AppTest):
         self.assertEqual(app.params.metrics,'lt')
     
     def test_has_input_file_argument(self):
-        status, app = self.runapp(self.app_cls, "omni-metric -f sample.csv")
-        self.assertEqual(app.params.input_file,'sample.csv')
+        status, app = self.runapp(self.app_cls, "omni-metric -f ./data/sample.csv")
+        self.assertEqual(app.params.input_file,'./data/sample.csv')
 
 class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
     app_cls = omnimetric.OmniMetricCommandLineApp
     
     def test_runs_lead_time_metric_from_csv_file(self):
 
-        master_output = ("Average Build to Deploy Leadtime = 10s\n")
+        master_output = ("Average Build to Deploy Leadtime = 10.0 s\n")
         
         s_stdout = io.StringIO()
         with redirect_stdout(s_stdout):
-            status, app = self.runapp(self.app_cls, "omni-metric -m lt -f ../data/sample.csv")
+            status, app = self.runapp(self.app_cls, "omni-metric -m lt -f ./data/sample.csv")
         
         self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
     
