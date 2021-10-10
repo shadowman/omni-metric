@@ -1,6 +1,6 @@
 import cli.app
-from metrics.csvloader import CsvEventsLoader
-from metrics.leadtime import LeadtimeMetricCalculator
+from omnim.src.metrics.csvloader import CsvEventsLoader
+from omnim.src.metrics.leadtime import LeadtimeMetricCalculator
 
 class OmniMetricCommandLineApp(cli.app.CommandLineApp):
 

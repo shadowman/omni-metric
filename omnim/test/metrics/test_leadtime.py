@@ -2,7 +2,7 @@ from datetime import timedelta
 import datetime
 import unittest
 
-from metrics.leadtime import LeadtimeMetricCalculator, WorkflowEvent
+from omnim.src.metrics.leadtime import LeadtimeMetricCalculator, WorkflowEvent
 
 class LeadTimeCalculatorTests(unittest.TestCase):
 

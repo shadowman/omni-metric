@@ -1,7 +1,7 @@
 from datetime import datetime
 import unittest
 
-from metrics.csvloader import CsvEventsLoader
+from omnim.src.metrics.csvloader import CsvEventsLoader
 
 class CsvEventsLoaderTests(unittest.TestCase):
 

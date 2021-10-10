@@ -1,5 +1,8 @@
 
-import omnimetric
+from omnim.src.omnimetric import (
+    OmniMetricCommandLineApp,
+    OmniMetricCommandLineApp
+)
 import io
 from cli import tests 
 from cli.app import Abort
@@ -8,7 +11,7 @@ from contextlib import redirect_stdout
 
 
 class TestOmniMetricCommandLineApp(tests.AppTest):
-    app_cls = omnimetric.OmniMetricCommandLineApp
+    app_cls = OmniMetricCommandLineApp
     
     def test_has_default_help_message(self):
         master_output = ("usage: main [-h] [-m METRICS] [-f INPUT_FILE]\n\n"
@@ -33,7 +36,7 @@ class TestOmniMetricCommandLineApp(tests.AppTest):
         self.assertEqual(app.params.input_file,'./data/sample.csv')
 
 class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
-    app_cls = omnimetric.OmniMetricCommandLineApp
+    app_cls = OmniMetricCommandLineApp
     
     def test_runs_lead_time_metric_from_csv_file(self):
 

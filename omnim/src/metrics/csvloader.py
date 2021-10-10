@@ -4,7 +4,7 @@ import datetime
 from os.path import exists
 
 
-from metrics.leadtime import WorkflowEvent
+from omnim.src.metrics.leadtime import WorkflowEvent
 
 class CsvEventsLoader:
     def __init__(self, file = None) -> None:
