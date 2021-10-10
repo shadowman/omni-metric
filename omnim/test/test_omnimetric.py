@@ -1,13 +1,10 @@
-
 from omnim.src.omnimetric import (
-    OmniMetricCommandLineApp,
     OmniMetricCommandLineApp
 )
 import io
 from cli import tests
 from cli.app import Abort
 from contextlib import redirect_stdout
-
 
 
 class TestOmniMetricCommandLineApp(tests.AppTest):

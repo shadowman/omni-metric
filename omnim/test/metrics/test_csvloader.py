@@ -1,6 +1,7 @@
 from datetime import datetime
 import unittest
 
+from omnim.src.metrics.leadtime import EventType
 from omnim.src.metrics.csvloader import CsvEventsLoader
 
 class CsvEventsLoaderTests(unittest.TestCase):
@@ -39,7 +40,7 @@ class CsvEventsLoaderTests(unittest.TestCase):
         events = self.test_csv_loader.get_all_events()
 
         first_event = events[0]
-        self.assertEqual(first_event.name, "build_success")
+        self.assertEqual(first_event.type, EventType.BUILD_SUCCESS)
 
     def test_it_should_load_each_event_data_correctly(self):
         self.test_csv_loader.load()

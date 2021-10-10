@@ -1,4 +1,14 @@
 import datetime
+from enum import Enum
+
+class EventType(Enum):
+    BUILD_SUCCESS = "build_success"
+    DEPLOY_SUCCESS = "deploy_success"
+    TEST_SUCCESS = "test_success"
+    TEST_FAILED = "test_failed"
+    BUILD_FAILED = "build_failed"
+    DEPLOY_FAILED = "deploy_failed"
+    NULL = "null"
 
 class LeadtimeMetricCalculator:
     def calculate(self, events = []):
@@ -12,10 +22,10 @@ class LeadtimeMetricCalculator:
                 event.data,{"build_time": None, "deploy_time": None}
             )
 
-            if event.name == "build_success":
+            if event.type == EventType.BUILD_SUCCESS:
                 pipeline_execution["build_time"] = event.datetime
             if (
-                event.name == "deploy_success" and
+                event.type == EventType.DEPLOY_SUCCESS and
                 pipeline_execution["build_time"] is not None
             ):
                 pipeline_execution["deploy_time"] = event.datetime
@@ -32,9 +42,9 @@ class WorkflowEvent:
     def __init__(
         self,
         datetime=datetime.datetime.today(),
-        name="event",
+        type="null",
         data=""
     ):
         self.datetime = datetime
-        self.name = name
+        self.type = EventType(type)
         self.data = data
