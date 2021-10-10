@@ -8,11 +8,16 @@ class LeadtimeMetricCalculator:
         pipelines = {}
 
         for event in events:
-            pipeline_execution = pipelines.setdefault(event.data,{"build_time": None, "deploy_time": None})
+            pipeline_execution = pipelines.setdefault(
+                event.data,{"build_time": None, "deploy_time": None}
+            )
 
             if event.name == "build_success":
                 pipeline_execution["build_time"] = event.datetime
-            if event.name == "deploy_success":
+            if (
+                event.name == "deploy_success" and
+                pipeline_execution["build_time"] is not None
+            ):
                 pipeline_execution["deploy_time"] = event.datetime
                 total_time += pipeline_execution["deploy_time"] - pipeline_execution["build_time"]
                 deploys_count += 1
@@ -24,7 +29,12 @@ class LeadtimeMetricCalculator:
         return average_leadtime
 
 class WorkflowEvent:
-    def __init__(self, datetime=datetime.datetime.today(), name="event", data=""):
+    def __init__(
+        self,
+        datetime=datetime.datetime.today(),
+        name="event",
+        data=""
+    ):
         self.datetime = datetime
         self.name = name
         self.data = data
