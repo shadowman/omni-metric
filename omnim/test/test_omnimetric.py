@@ -4,7 +4,7 @@ from omnim.src.omnimetric import (
     OmniMetricCommandLineApp
 )
 import io
-from cli import tests 
+from cli import tests
 from cli.app import Abort
 from contextlib import redirect_stdout
 
@@ -12,7 +12,7 @@ from contextlib import redirect_stdout
 
 class TestOmniMetricCommandLineApp(tests.AppTest):
     app_cls = OmniMetricCommandLineApp
-    
+
     def test_has_default_help_message(self):
         master_output = ("usage: main [-h] [-m METRICS] [-f INPUT_FILE]\n\n"
                 "optional arguments:\n"
@@ -21,10 +21,11 @@ class TestOmniMetricCommandLineApp(tests.AppTest):
                 "  -f INPUT_FILE, --input-file INPUT_FILE\n")
         
         s_stdout = io.StringIO()
+
         with redirect_stdout(s_stdout):
             with self.assertRaises(Abort):
                 status, app = self.runapp(self.app_cls, "omni-metric -h")
-        
+
         self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
 
     def test_has_lead_time_argument(self):
@@ -47,8 +48,6 @@ class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
             status, app = self.runapp(self.app_cls, "omni-metric -m lt -f ./data/sample.csv")
         
         self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
-    
-    
 
 if __name__ == '__main__':
     unittest.main()
