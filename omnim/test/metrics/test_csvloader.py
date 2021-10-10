@@ -9,10 +9,14 @@ class CsvEventsLoaderTests(unittest.TestCase):
         super().setUp()
         self.test_csv_loader = CsvEventsLoader("./data/sample.csv")
 
-    def test_it_should_load_a_parametrized_file(self):
+    def test_it_should_set_a_parametrized_file_to_be_loaded(self):
         loader = CsvEventsLoader("test")
         self.assertEqual(loader.file_path, "test")
 
+    def test_it_should_throw_exception_if_file_not_found(self):
+        loader = CsvEventsLoader("test")
+        with self.assertRaises(FileNotFoundError):
+            loader.load()
 
     def test_it_should_load_each_row_as_a_workflow_event(self):
         self.test_csv_loader.load()
@@ -28,8 +32,7 @@ class CsvEventsLoaderTests(unittest.TestCase):
 
         for event in events:
             self.assertEqual(datetime, type(event.datetime))
-        
-    
+
     def test_it_should_load_event_names_correctly(self):
         self.test_csv_loader.load()
 
@@ -37,8 +40,7 @@ class CsvEventsLoaderTests(unittest.TestCase):
 
         first_event = events[0]
         self.assertEqual(first_event.name, "build_success")
-        
-        
+
     def test_it_should_load_each_event_data_correctly(self):
         self.test_csv_loader.load()
 

@@ -25,7 +25,7 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
         self._calculate_metrics()
 
         return None
-    
+
     def _load_events(self):
         if self.events_loader is not None:
             try:
