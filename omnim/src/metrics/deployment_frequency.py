@@ -13,7 +13,6 @@ class DeploymentFrequencyMetricCalculator:
 
         deploys_count = 0
 
-
         for event in events:
             if event.type == EventType.DEPLOY_SUCCESS:
                 deploys_count += 1
