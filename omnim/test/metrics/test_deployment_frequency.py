@@ -1,13 +1,13 @@
 import pytest
 
-from omnim.src.metrics.deployment_frequency import DeploymentFrequencyCalculator
+from omnim.src.metrics.deployment_frequency import DeploymentFrequencyMetricCalculator
 
 @pytest.mark.current
 class TestDeploymentFrequencyCalculator:
 
     def test_it_should_return_no_frequency_with_no_events(self):
 
-        metric = DeploymentFrequencyCalculator()
+        metric = DeploymentFrequencyMetricCalculator()
 
         result = metric.calculate([])
 

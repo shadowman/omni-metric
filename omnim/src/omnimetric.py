@@ -1,6 +1,7 @@
 import cli.app
 from omnim.src.metrics.csvloader import CsvEventsLoader
 from omnim.src.metrics.leadtime import LeadtimeMetricCalculator
+from omnim.src.metrics.deployment_frequency import DeploymentFrequencyMetricCalculator
 
 
 class OmniMetricCommandLineApp(cli.app.CommandLineApp):
@@ -21,6 +22,9 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
 
         if self.params.metrics == "lt":
             self.metrics = LeadtimeMetricCalculator()
+
+        if self.params.metrics == "df":
+            self.metrics = DeploymentFrequencyMetricCalculator()
 
         self._load_events()
         self._calculate_metrics()
