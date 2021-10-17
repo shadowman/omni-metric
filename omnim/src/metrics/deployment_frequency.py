@@ -7,4 +7,7 @@ class DeploymentFrequencyMetricCalculator:
         pass
 
     def calculate(self, events: List):
+        if len(events) == 0:
+            return None
+
         raise NotImplementedError
