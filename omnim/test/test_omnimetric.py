@@ -52,7 +52,7 @@ class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
 
     def test_runs_deployment_frequency_metric_from_csv_file(self):
 
-        master_output = ("Average Deployment Frequency = 10.0 s\n")
+        master_output = ("Average Deployment Frequency = 1.0 dep/day\n")
 
         s_stdout = io.StringIO()
         with redirect_stdout(s_stdout):

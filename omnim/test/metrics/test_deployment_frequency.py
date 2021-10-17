@@ -40,7 +40,7 @@ class TestDeploymentFrequencyCalculator:
 
         result = metric.calculate(events_stream)
 
-        assert result is 1
+        assert result == 1.0
 
     def test_it_should_return_deployment_frequency_of_0_5(self):
 
