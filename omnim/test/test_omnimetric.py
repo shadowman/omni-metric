@@ -28,6 +28,10 @@ class TestOmniMetricCommandLineApp(tests.AppTest):
     def test_has_lead_time_argument(self):
         status, app = self.runapp(self.app_cls, "omni-metric -m lt")
         self.assertEqual(app.params.metrics,'lt')
+
+    def test_has_deployment_frequency_argument(self):
+        status, app = self.runapp(self.app_cls, "omni-metric -m df")
+        self.assertEqual(app.params.metrics,'df')
     
     def test_has_input_file_argument(self):
         status, app = self.runapp(self.app_cls, "omni-metric -f ./data/sample.csv")
