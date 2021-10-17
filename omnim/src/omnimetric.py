@@ -2,6 +2,7 @@ import cli.app
 from omnim.src.metrics.csvloader import CsvEventsLoader
 from omnim.src.metrics.leadtime import LeadtimeMetricCalculator
 
+
 class OmniMetricCommandLineApp(cli.app.CommandLineApp):
 
     def setup(self):
@@ -17,10 +18,10 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
     def main(self):
         if self.params.input_file is not None:
             self.events_loader = CsvEventsLoader(self.params.input_file)
-            
+
         if self.params.metrics == "lt":
             self.metrics = LeadtimeMetricCalculator()
-        
+
         self._load_events()
         self._calculate_metrics()
 
@@ -33,7 +34,7 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
                 self.events = self.events_loader.get_all_events()
             except Exception as e:
                 raise e
-        
+
     def _calculate_metrics(self):
         if self.metrics is not None:
             try:
@@ -41,9 +42,13 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
             except Exception as e:
                 raise e
             if result is not None:
-                print("Average Build to Deploy Leadtime =", result.total_seconds(), "s")
+                print(
+                    "Average Build to Deploy Leadtime =",
+                    result.total_seconds(),
+                    "s"
+                )
 
-            
+
 if __name__ == "__main__":
     om = OmniMetricCommandLineApp()
     om.run()
