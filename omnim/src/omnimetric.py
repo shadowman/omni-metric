@@ -46,11 +46,16 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
             except Exception as e:
                 raise e
             if result is not None:
-                print(
-                    "Average Build to Deploy Leadtime =",
-                    result.total_seconds(),
-                    "s"
-                )
+                if self.params.metrics == "lt":
+                    print(
+                        "Average Build to Deploy Leadtime =",
+                        result.total_seconds(),
+                        "s"
+                    )
+                elif self.params.metrics == "df":
+                    print(f"Average Deployment Frequency = {result} dep/day")
+                else:
+                    raise NotImplementedError(f"{self.params.metrics} metric not implemented")
 
 
 if __name__ == "__main__":

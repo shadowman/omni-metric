@@ -1,3 +1,4 @@
+import pytest
 from omnim.src.omnimetric import (
     OmniMetricCommandLineApp
 )
@@ -50,6 +51,7 @@ class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
         
         self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
 
+    @pytest.mark.current
     def test_runs_deployment_frequency_metric_from_csv_file(self):
 
         master_output = ("Average Deployment Frequency = 1.0 dep/day\n")
