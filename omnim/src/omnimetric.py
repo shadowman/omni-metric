@@ -2,6 +2,7 @@ import cli.app
 from omnim.src.metrics.csvloader import CsvEventsLoader
 from omnim.src.metrics.leadtime import LeadtimeMetricCalculator
 from omnim.src.metrics.deployment_frequency import DeploymentFrequencyMetricCalculator
+from omnim.src.metrics.change_failure_rate import ChangeFailureRateMetricCalculator
 
 
 class OmniMetricCommandLineApp(cli.app.CommandLineApp):
@@ -25,6 +26,9 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
 
         if self.params.metrics == "df":
             self.metrics = DeploymentFrequencyMetricCalculator()
+
+        if self.params.metrics == "cfr":
+            self.metrics = ChangeFailureRateMetricCalculator()
 
         self._load_events()
         self._calculate_metrics()
@@ -54,6 +58,8 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
                     )
                 elif self.params.metrics == "df":
                     print(f"Average Deployment Frequency = {result} dep/day")
+                elif self.params.metrics == "cfr":
+                    print(f"Average Change Failure Rate = {result} failures/dep")
                 else:
                     raise NotImplementedError(f"{self.params.metrics} metric not implemented")
 

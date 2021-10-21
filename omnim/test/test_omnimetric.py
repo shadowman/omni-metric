@@ -66,5 +66,14 @@ class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
 
         self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
 
+    def test_runs_change_failure_rate_metric_from_csv_file(self):
+
+        master_output = ("Average Change Failure Rate = 0.0 failures/dep\n")
+
+        s_stdout = io.StringIO()
+        with redirect_stdout(s_stdout):
+            status, app = self.runapp(self.app_cls, "omni-metric -m cfr -f ./data/sample.csv")
+
+        self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
 if __name__ == '__main__':
     unittest.main()
