@@ -29,3 +29,12 @@ class CsvEventsLoader:
 
     def get_all_events(self):
         return self._events
+
+# Workflow
+# class GithubEventsLoader
+# class GitlabEventsloader
+
+# Monitoring
+# class NewRelicEventsLoader
+# class PrometheusEventsLoader
+
