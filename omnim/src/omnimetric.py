@@ -14,7 +14,6 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
 
         self.events_loader = None
         self.events = []
-        self.monitoring_events = []
 
         self.metrics = None
 
@@ -47,10 +46,7 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
     def _calculate_metrics(self):
         if self.metrics is not None:
             try:
-                if self.params.metrics == "cfr":
-                    result = self.metrics.calculate(self.events, self.monitoring_events)
-                else:
-                    result = self.metrics.calculate(self.events)
+                result = self.metrics.calculate(self.events)
             except Exception as e:
                 raise e
             if result is not None:
