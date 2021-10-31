@@ -10,6 +10,8 @@ class EventType(Enum):
     DEPLOY_FAILED = "deploy_failed"
     NULL = "null"
     ERROR = "error"
+    SERVICE_FAILING = "service_failing"
+    SERVICE_RESTORED = "service_restored"
 
 class LeadtimeMetricCalculator:
     def calculate(self, events = []):
