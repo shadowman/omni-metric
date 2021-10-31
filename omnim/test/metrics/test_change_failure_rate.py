@@ -53,6 +53,3 @@ class TestChangeFailureRateCalculator:
         result = metric.calculate(events_stream)
 
         assert result == 0.5
-
-    
-
