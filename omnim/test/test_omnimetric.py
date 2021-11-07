@@ -73,5 +73,25 @@ class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
             status, app = self.runapp(self.app_cls, "omni-metric -m cfr -f ./data/sample.csv")
 
         self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
+
+    def test_runs_mean_time_to_restore_metric_from_csv_file_and_inform_not_enough_data(self):
+
+        master_output = "Not enough data to calculate Mean Time To Restore\n"
+
+        s_stdout = io.StringIO()
+        with redirect_stdout(s_stdout):
+            status, app = self.runapp(self.app_cls, "omni-metric -m mttr -f ./data/sample.csv")
+
+        self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
+
+    def test_runs_mean_time_to_restore_metric_from_csv_file_and_inform_not_enough_data(self):
+
+        master_output = "Mean Time To Restore = 60 second(s)\n"
+
+        s_stdout = io.StringIO()
+        with redirect_stdout(s_stdout):
+            status, app = self.runapp(self.app_cls, "omni-metric -m mttr -f ./data/mttr_data_stream.csv")
+
+        self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
 if __name__ == '__main__':
     unittest.main()
