@@ -21,4 +21,7 @@ class ChangeFailureRateMetricCalculator:
             if event.type == EventType.ERROR:
                 failure_count += 1
 
+        if deployment_count == 0:
+            return None
+
         return failure_count / deployment_count
