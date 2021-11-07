@@ -1,7 +1,7 @@
 from datetime import datetime
 import unittest
 
-from omnim.src.metrics.leadtime import EventType
+from omnim.src.events import EventType
 from omnim.src.metrics.csvloader import CsvEventsLoader
 
 class CsvEventsLoaderTests(unittest.TestCase):

@@ -1,10 +1,10 @@
-import pytest
 import datetime
 
 from omnim.src.metrics.mean_time_to_restore import MeanTimeToRestoreMetricCalculator
-from omnim.src.metrics.leadtime import EventType, WorkflowEvent
+from omnim.src.metrics.leadtime import WorkflowEvent
+from omnim.src.events import EventType
 
-@pytest.mark.current
+
 class TestMeanTimeToRestoreMetricCalculator:
 
     def test_it_should_return_no_mttr_with_no_events(self):

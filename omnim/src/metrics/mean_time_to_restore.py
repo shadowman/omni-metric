@@ -1,5 +1,5 @@
 from typing import List
-from omnim.src.metrics.leadtime import EventType
+from omnim.src.events import EventType
 
 class MeanTimeToRestoreMetricCalculator:
 

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from typing import List
-from omnim.src.metrics.leadtime import EventType
+from omnim.src.events import EventType
+
+
 class ChangeFailureRateMetricCalculator:
 
     def __init__(self):
@@ -19,4 +21,4 @@ class ChangeFailureRateMetricCalculator:
             if event.type == EventType.ERROR:
                 failure_count += 1
 
-        return  failure_count / deployment_count
+        return failure_count / deployment_count

@@ -1,8 +1,8 @@
 import datetime
-import pytest
 
 from omnim.src.metrics.deployment_frequency import DeploymentFrequencyMetricCalculator
 from omnim.src.metrics.leadtime import WorkflowEvent
+
 
 class TestDeploymentFrequencyCalculator:
 

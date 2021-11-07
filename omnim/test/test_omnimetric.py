@@ -1,4 +1,3 @@
-import pytest
 from omnim.src.omnimetric import (
     OmniMetricCommandLineApp
 )

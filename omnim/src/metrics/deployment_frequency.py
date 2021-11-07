@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from typing import List
-from omnim.src.metrics.leadtime import EventType
+from omnim.src.events import EventType
 
 class DeploymentFrequencyMetricCalculator:
 

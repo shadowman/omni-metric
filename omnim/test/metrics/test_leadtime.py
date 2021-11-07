@@ -4,6 +4,7 @@ import unittest
 
 from omnim.src.metrics.leadtime import LeadtimeMetricCalculator, WorkflowEvent
 
+
 class LeadTimeCalculatorTests(unittest.TestCase):
 
     def test_it_should_return_no_timespan_with_no_events(self):

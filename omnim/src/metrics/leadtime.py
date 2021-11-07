@@ -1,17 +1,6 @@
 import datetime
-from enum import Enum
 
-class EventType(Enum):
-    BUILD_SUCCESS = "build_success"
-    DEPLOY_SUCCESS = "deploy_success"
-    TEST_SUCCESS = "test_success"
-    TEST_FAILED = "test_failed"
-    BUILD_FAILED = "build_failed"
-    DEPLOY_FAILED = "deploy_failed"
-    NULL = "null"
-    ERROR = "error"
-    SERVICE_FAILING = "service_failing"
-    SERVICE_RESTORED = "service_restored"
+from omnim.src.events import EventType
 
 class LeadtimeMetricCalculator:
     def calculate(self, events = []):
