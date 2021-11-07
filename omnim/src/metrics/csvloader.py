@@ -1,10 +1,8 @@
-
 import csv
 import datetime
 from os.path import exists
-
-
 from omnim.src.metrics.leadtime import WorkflowEvent
+
 
 class CsvEventsLoader:
     def __init__(self, file = None) -> None:

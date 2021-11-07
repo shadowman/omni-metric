@@ -41,6 +41,7 @@ class TestOmniMetricCommandLineApp(tests.AppTest):
         status, app = self.runapp(self.app_cls, "omni-metric -f ./data/sample.csv")
         self.assertEqual(app.params.input_file,'./data/sample.csv')
 
+
 class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
     app_cls = OmniMetricCommandLineApp
     
