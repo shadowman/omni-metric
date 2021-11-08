@@ -68,7 +68,7 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
                 if result is None:
                     print(f"Not enough data to calculate Mean Time To Restore")
                 else:
-                    print("Mean Time To Restore = %d0 second(s)" % result)
+                    print("Mean Time To Restore = %d second(s)" % result)
             else:
                 raise NotImplementedError(f"{self.params.metrics} metric not implemented")
 
