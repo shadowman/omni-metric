@@ -31,3 +31,7 @@ the more monitoring errors the larger the CFR + deployment intents
 CFR = 1/4
 CFR = 0
 
+# Related projects
+
+- https://github.com/thoughtworks/metrik
+- https://github.com/GoogleCloudPlatform/fourkeys
