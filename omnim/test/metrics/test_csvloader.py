@@ -8,7 +8,7 @@ class CsvEventsLoaderTests(unittest.TestCase):
 
     def setUp(self) -> None:
         super().setUp()
-        self.test_csv_loader = CsvEventsLoader("./data/sample.csv")
+        self.test_csv_loader = CsvEventsLoader("./data/stream/sample.csv")
 
     def test_it_should_set_a_parametrized_file_to_be_loaded(self):
         loader = CsvEventsLoader("test")

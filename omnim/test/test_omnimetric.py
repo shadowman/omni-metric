@@ -38,8 +38,8 @@ class TestOmniMetricCommandLineApp(tests.AppTest):
         self.assertEqual(app.params.metrics,'cfr')
     
     def test_has_input_file_argument(self):
-        status, app = self.runapp(self.app_cls, "omni-metric -f ./data/sample.csv")
-        self.assertEqual(app.params.input_file,'./data/sample.csv')
+        status, app = self.runapp(self.app_cls, "omni-metric -f ./data/stream/sample.csv")
+        self.assertEqual(app.params.input_file,'./data/stream/sample.csv')
 
 
 class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
@@ -51,7 +51,7 @@ class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
         
         s_stdout = io.StringIO()
         with redirect_stdout(s_stdout):
-            status, app = self.runapp(self.app_cls, "omni-metric -m lt -f ./data/sample.csv")
+            status, app = self.runapp(self.app_cls, "omni-metric -m lt -f ./data/stream/sample.csv")
         
         self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
 
@@ -61,7 +61,7 @@ class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
 
         s_stdout = io.StringIO()
         with redirect_stdout(s_stdout):
-            status, app = self.runapp(self.app_cls, "omni-metric -m df -f ./data/sample.csv")
+            status, app = self.runapp(self.app_cls, "omni-metric -m df -f ./data/stream/sample.csv")
 
         self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
 
@@ -71,7 +71,7 @@ class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
 
         s_stdout = io.StringIO()
         with redirect_stdout(s_stdout):
-            status, app = self.runapp(self.app_cls, "omni-metric -m cfr -f ./data/sample.csv")
+            status, app = self.runapp(self.app_cls, "omni-metric -m cfr -f ./data/stream/sample.csv")
 
         self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
 
@@ -81,7 +81,7 @@ class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
 
         s_stdout = io.StringIO()
         with redirect_stdout(s_stdout):
-            status, app = self.runapp(self.app_cls, "omni-metric -m mttr -f ./data/sample.csv")
+            status, app = self.runapp(self.app_cls, "omni-metric -m mttr -f ./data/stream/sample.csv")
 
         self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
 
