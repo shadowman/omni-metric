@@ -71,7 +71,7 @@ class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
 
         s_stdout = io.StringIO()
         with redirect_stdout(s_stdout):
-            status, app = self.runapp(self.app_cls, "omni-metric -m cfr -f ./data/stream/sample.csv")
+            status, app = self.runapp(self.app_cls, "omni-metric -m cfr -f ./data/cfr_data_stream.csv")
 
         self.assertMultiLineEqual(s_stdout.getvalue(), master_output)
 
