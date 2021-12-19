@@ -6,6 +6,10 @@ The one tool to monitor the 4 key metrics from the accelerate book for your envi
 
 https://miro.com/app/board/uXjVOdNGlQs=/
 
+# Docs
+
+We store documentation related to the project under the folder [docs/](./docs)
+
 # Definitions
 
 - Deployment Frequency: addresses minimizing the batch size in a project (reducing it is a central element of the Lean paradigm). As this is hard to measure in software, they took the deployment frequency of software to production as a proxy.
