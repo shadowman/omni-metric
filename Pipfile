@@ -6,7 +6,9 @@ name = "pypi"
 [packages]
 pycli = "*"
 
+
 [dev-packages]
+pytest-asyncio = "*"
 pytest = "*"
 ipython = "*"
 flake8 = "*"
