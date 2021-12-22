@@ -1,6 +1,8 @@
 import datetime
 
-from omnim.src.metrics.mean_time_to_restore import MeanTimeToRestoreMetricCalculator
+from omnim.src.metrics.mean_time_to_restore import (
+    MeanTimeToRestoreMetricCalculator
+)
 from omnim.src.metrics.leadtime import WorkflowEvent
 from omnim.src.events import EventType
 
@@ -25,8 +27,7 @@ class TestMeanTimeToRestoreMetricCalculator:
 
         assert result is None
 
-
-    def test_should_return_mttr_of_one_minute_in_seconds_on_detected_error(self):
+    def test_should_return_mttr_of_one_minute_in_seconds_on_detected_error(self):  # noqa: E501
         today = datetime.datetime.today()
         events = [
             WorkflowEvent(
@@ -49,7 +50,7 @@ class TestMeanTimeToRestoreMetricCalculator:
 
         assert result == 60
 
-    def test_should_take_the_first_error_timestamp_when_detected_service_error_twice(self):
+    def test_should_take_the_first_error_timestamp_when_detected_service_error_twice(self):  # noqa: E501
         today = datetime.datetime.today()
         events = [
             WorkflowEvent(
@@ -77,7 +78,7 @@ class TestMeanTimeToRestoreMetricCalculator:
 
         assert result == 120
 
-    def test_should_return_none_if_a_service_is_restored_before_service_failing(self):
+    def test_should_return_none_if_a_service_is_restored_before_service_failing(self):  # noqa: E501
         today = datetime.datetime.today()
         events = [
             WorkflowEvent(

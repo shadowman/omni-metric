@@ -4,6 +4,7 @@ import unittest
 from omnim.src.events import EventType
 from omnim.src.metrics.csvloader import CsvEventsLoader
 
+
 class CsvEventsLoaderTests(unittest.TestCase):
 
     def setUp(self) -> None:
@@ -49,5 +50,3 @@ class CsvEventsLoaderTests(unittest.TestCase):
 
         first_event = events[0]
         self.assertEqual(first_event.data, "pipeline_id1#1")
-        
-        

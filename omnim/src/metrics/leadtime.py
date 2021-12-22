@@ -2,8 +2,10 @@ import datetime
 
 from omnim.src.events import EventType
 
+
 class LeadtimeMetricCalculator:
-    def calculate(self, events = []):
+
+    def calculate(self, events=()):
         total_time = datetime.timedelta()
 
         deploys_count = 0
@@ -11,7 +13,7 @@ class LeadtimeMetricCalculator:
 
         for event in events:
             pipeline_execution = pipelines.setdefault(
-                event.data,{"build_time": None, "deploy_time": None}
+                event.data, {"build_time": None, "deploy_time": None}
             )
 
             if event.type == EventType.BUILD_SUCCESS:
@@ -21,7 +23,10 @@ class LeadtimeMetricCalculator:
                 pipeline_execution["build_time"] is not None
             ):
                 pipeline_execution["deploy_time"] = event.datetime
-                total_time += pipeline_execution["deploy_time"] - pipeline_execution["build_time"]
+                total_time += (
+                    pipeline_execution["deploy_time"] -
+                    pipeline_execution["build_time"]
+                )
                 deploys_count += 1
 
         average_leadtime = None
@@ -29,6 +34,7 @@ class LeadtimeMetricCalculator:
         if deploys_count > 0:
             average_leadtime = total_time / deploys_count
         return average_leadtime
+
 
 class WorkflowEvent:
     def __init__(

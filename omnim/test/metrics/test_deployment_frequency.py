@@ -1,6 +1,8 @@
 import datetime
 
-from omnim.src.metrics.deployment_frequency import DeploymentFrequencyMetricCalculator
+from omnim.src.metrics.deployment_frequency import (
+    DeploymentFrequencyMetricCalculator
+)
 from omnim.src.metrics.leadtime import WorkflowEvent
 
 
@@ -14,10 +16,10 @@ class TestDeploymentFrequencyCalculator:
 
         assert result is None
 
-    def test_it_should_return_no_frequency_with_no_deployment_success_event(self):
+    def test_it_should_return_no_frequency_with_no_deployment_success_event(self):  # noqa: E501
 
         metric = DeploymentFrequencyMetricCalculator()
-        today  = datetime.datetime.today()
+        today = datetime.datetime.today()
 
         events_stream = (
             WorkflowEvent(today, "build_success"),
@@ -30,7 +32,7 @@ class TestDeploymentFrequencyCalculator:
     def test_it_should_return_deployment_frequency_of_one(self):
 
         metric = DeploymentFrequencyMetricCalculator()
-        today  = datetime.datetime.today()
+        today = datetime.datetime.today()
 
         events_stream = (
             WorkflowEvent(today, "build_success"),
@@ -44,8 +46,8 @@ class TestDeploymentFrequencyCalculator:
     def test_it_should_return_deployment_frequency_of_0_5(self):
 
         metric = DeploymentFrequencyMetricCalculator()
-        today  = datetime.datetime.today()
-        yesterday  = today - datetime.timedelta(days=2)
+        today = datetime.datetime.today()
+        yesterday = today - datetime.timedelta(days=2)
 
         events_stream = (
             WorkflowEvent(yesterday, "build_failed"),
@@ -56,20 +58,20 @@ class TestDeploymentFrequencyCalculator:
 
         assert result == 0.5
 
-    def test_it_should_return_deployment_frequency_of_0_666_for_two_success_deployments_in_3_days(self):
+    def test_it_should_return_deployment_frequency_of_0_666_for_two_success_deployments_in_3_days(self):  # noqa: E501
 
-            metric = DeploymentFrequencyMetricCalculator()
-            today  = datetime.datetime.today()
-            yesterday  = today - datetime.timedelta(days=2)
-            day_before  = today - datetime.timedelta(days=3)
+        metric = DeploymentFrequencyMetricCalculator()
+        today = datetime.datetime.today()
+        yesterday = today - datetime.timedelta(days=2)
+        day_before = today - datetime.timedelta(days=3)
 
-            events_stream = (
-                WorkflowEvent(day_before, "build_failed"),
-                WorkflowEvent(yesterday, "build_failed"),
-                WorkflowEvent(today, "deploy_success"),
-                WorkflowEvent(today, "deploy_success"),
-            )
+        events_stream = (
+            WorkflowEvent(day_before, "build_failed"),
+            WorkflowEvent(yesterday, "build_failed"),
+            WorkflowEvent(today, "deploy_success"),
+            WorkflowEvent(today, "deploy_success"),
+        )
 
-            result = metric.calculate(events_stream)
+        result = metric.calculate(events_stream)
 
-            assert result == 2/3
+        assert result == 2/3

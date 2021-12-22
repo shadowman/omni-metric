@@ -1,6 +1,7 @@
 from typing import List
 from omnim.src.events import EventType
 
+
 class MeanTimeToRestoreMetricCalculator:
 
     def __init__(self):
@@ -11,17 +12,25 @@ class MeanTimeToRestoreMetricCalculator:
 
         times_to_restore = []
         last_error_timestamp = None
-        
+
         for event in workflow_events:
-            if event.type == EventType.SERVICE_FAILING and last_error_timestamp is None:
+            if (
+                    event.type == EventType.SERVICE_FAILING and
+                    last_error_timestamp is None
+            ):
                 last_error_timestamp = event.datetime
-            if event.type == EventType.SERVICE_RESTORED and last_error_timestamp is not None:
+            if (
+                event.type == EventType.SERVICE_RESTORED and
+                last_error_timestamp is not None
+            ):
                 times_to_restore.append(
                     (event.datetime - last_error_timestamp).total_seconds()
                 )
                 last_error_timestamp = None
 
         if len(times_to_restore) > 0:
-            mean_time_to_restore = sum(times_to_restore) / len(times_to_restore)
+            mean_time_to_restore = (
+                sum(times_to_restore) / len(times_to_restore)
+            )
 
         return mean_time_to_restore

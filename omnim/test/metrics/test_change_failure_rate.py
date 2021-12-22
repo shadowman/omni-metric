@@ -1,6 +1,8 @@
 import datetime
 
-from omnim.src.metrics.change_failure_rate import ChangeFailureRateMetricCalculator
+from omnim.src.metrics.change_failure_rate import (
+    ChangeFailureRateMetricCalculator
+)
 from omnim.src.metrics.leadtime import WorkflowEvent
 from omnim.src.events import EventType
 
@@ -14,7 +16,7 @@ class TestChangeFailureRateCalculator:
 
         assert result is None
 
-    def test_should_return_no_failure_rate_with_no_events_of_deploy_success(self):
+    def test_should_return_no_failure_rate_with_no_events_of_deploy_success(self):  # noqa: E501
         metric = ChangeFailureRateMetricCalculator()
         today = datetime.datetime.today()
 
@@ -55,7 +57,7 @@ class TestChangeFailureRateCalculator:
 
         assert result == 1.0
 
-    def test_it_should_return_failure_rate_of_0_5_for_build_success_followed_by_build_failure(self):
+    def test_it_should_return_failure_rate_of_0_5_for_build_success_followed_by_build_failure(self):  # noqa: E501
         metric = ChangeFailureRateMetricCalculator()
         today = datetime.datetime.today()
 

@@ -5,7 +5,8 @@ name = "pypi"
 
 [packages]
 pycli = "*"
-
+aiohttp = "*"
+asynctest = "*"
 
 [dev-packages]
 pytest-asyncio = "*"

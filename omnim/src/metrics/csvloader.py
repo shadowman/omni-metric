@@ -5,22 +5,26 @@ from omnim.src.metrics.leadtime import WorkflowEvent
 
 
 class CsvEventsLoader:
-    def __init__(self, file = None) -> None:
+
+    def __init__(self, file=None) -> None:
         self.file_path = file
+        self._events = []
 
     def load(self):
         if not exists(self.file_path):
-            raise FileNotFoundError("Please check that the file path provided is correct.")
-        
-        self._events = []
+            raise FileNotFoundError(
+                "Please check that the file path provided is correct."
+            )
 
         with open(self.file_path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                event_datetime = datetime.datetime.fromtimestamp(int(row["datetime"]))
+                event_datetime = (
+                    datetime.datetime.fromtimestamp(int(row["datetime"]))
+                )
                 event_name = row["event_name"]
                 event_data = row["data"]
-                
+
                 event = WorkflowEvent(event_datetime, event_name, event_data)
 
                 self._events.append(event)
@@ -35,4 +39,3 @@ class CsvEventsLoader:
 # Monitoring
 # class NewRelicEventsLoader
 # class PrometheusEventsLoader
-

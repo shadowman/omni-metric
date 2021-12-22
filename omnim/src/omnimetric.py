@@ -1,9 +1,15 @@
 import cli.app
 from omnim.src.metrics.csvloader import CsvEventsLoader
 from omnim.src.metrics.leadtime import LeadtimeMetricCalculator
-from omnim.src.metrics.deployment_frequency import DeploymentFrequencyMetricCalculator
-from omnim.src.metrics.change_failure_rate import ChangeFailureRateMetricCalculator
-from omnim.src.metrics.mean_time_to_restore import MeanTimeToRestoreMetricCalculator
+from omnim.src.metrics.deployment_frequency import (
+    DeploymentFrequencyMetricCalculator
+)
+from omnim.src.metrics.change_failure_rate import (
+    ChangeFailureRateMetricCalculator
+)
+from omnim.src.metrics.mean_time_to_restore import (
+    MeanTimeToRestoreMetricCalculator
+)
 
 
 class OmniMetricCommandLineApp(cli.app.CommandLineApp):
@@ -66,11 +72,13 @@ class OmniMetricCommandLineApp(cli.app.CommandLineApp):
                 print(f"Average Change Failure Rate = {result} failures/dep")
             elif self.params.metrics == "mttr":
                 if result is None:
-                    print(f"Not enough data to calculate Mean Time To Restore")
+                    print("Not enough data to calculate Mean Time To Restore")
                 else:
-                    print("Mean Time To Restore = %d second(s)" % result)
+                    print(f"Mean Time To Restore = {result} second(s)")
             else:
-                raise NotImplementedError(f"{self.params.metrics} metric not implemented")
+                raise NotImplementedError(
+                    f"{self.params.metrics} metric not implemented"
+                )
 
 
 if __name__ == "__main__":
