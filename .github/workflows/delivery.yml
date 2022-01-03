@@ -21,5 +21,6 @@ jobs:
         echo 'PYTHONPATH=${PYTHONPATH}:${PWD}' >> .env
         pip install --upgrade pip
         pip install pipenv
+        pipenv install
         pipenv install --dev
         pipenv run pytest
