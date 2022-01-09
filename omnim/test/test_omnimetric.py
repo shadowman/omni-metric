@@ -104,7 +104,7 @@ class TestOmniMetricCommandLineAppMetricsOutput(tests.AppTest):
 
     def test_runs_mean_time_to_restore_metric_from_csv_file(self):  # noqa: E501
 
-        master_output = "Mean Time To Restore = 60 second(s)\n"
+        master_output = "Mean Time To Restore = 60.0 second(s)\n"
 
         s_stdout = io.StringIO()
         with redirect_stdout(s_stdout):
