@@ -1,3 +1,4 @@
+from omnim.src.exceptions.exceptions import TokenNotFoundException
 from omnim.src.sources.pipeline_source import PipelineSource
 from typing import Dict, Any
 import csv
@@ -11,10 +12,20 @@ class GithubActionsSource(PipelineSource):
     github_date_format: str = "%Y-%m-%dT%H:%M:%SZ"
     github_URI: str = "https://api.github.com"
 
-    def __init__(self, user: str, repo: str, deployment_action_name: str):
+    def __init__(
+        self,
+        user: str,
+        token: str,
+        repo: str,
+        deployment_action_name: str,
+    ):
         self.user = user
         self.repo = repo
         self.deployment_action_name = deployment_action_name
+
+        if not token:
+            raise TokenNotFoundException()
+        self.token = token
 
         self.github_url = (
             f"{self.github_URI}/repos/{user}/{repo}/actions/runs"
