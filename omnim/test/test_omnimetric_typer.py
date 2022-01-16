@@ -20,7 +20,7 @@ Options:
 
         assert master_output in result.stdout
 
-    def test_should_raise_exception_for_invalid_metric_type(self):
+    def test_should_raise_error_for_invalid_metric_type(self):
         wrong_metric = "whatever"
         master_output = (
             f"Error: Invalid value for '--metrics': '{wrong_metric}' " 
@@ -28,5 +28,15 @@ Options:
         )
 
         result = runner.invoke(app, ["main", "--metrics", wrong_metric])
+
+        assert master_output in result.stdout
+
+    def test_should_raise_error_for_invalid_file_path(self):
+        wrong_path = "./wrong_file_path.csv"
+        master_output = (
+            f"Error: Invalid value for '--input-file': Path '{wrong_path}' does not exist."
+        )
+
+        result = runner.invoke(app, ["--metrics", "lt", "--input-file", wrong_path])
 
         assert master_output in result.stdout

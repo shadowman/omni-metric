@@ -1,5 +1,6 @@
 import typer
 from enum import Enum
+from pathlib import Path
 
 app = typer.Typer()
 
@@ -13,10 +14,11 @@ class MetricsOptions(Enum):
 
 @app.command()
 def main(
-    metrics: MetricsOptions = typer.Option("", help=""),
-    input_file: str = ""
+    metrics: MetricsOptions = typer.Option(..., help=""),
+    input_file: Path = typer.Option(..., exists=True, file_okay=True)
 ):
     typer.echo(f"Hello")
+
 
 if __name__ == "__main__":
     app()
