@@ -15,8 +15,14 @@ class TestGithubActions:
             None
         ]
     )
-    async def test_should_raise_exception_if_no_token_provided(self, test_token):
-        with pytest.raises(TokenNotFoundException, match="Not token provided!"):
+    async def test_should_raise_exception_if_no_token_provided(
+        self,
+        test_token
+    ):
+        with pytest.raises(
+            TokenNotFoundException,
+            match="Not token provided!"
+        ):
             GithubActionsSource(
                 user="jmaralc",
                 repo="oop_rust",

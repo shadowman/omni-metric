@@ -17,7 +17,8 @@ def main(
     metrics: MetricsOptions = typer.Option(..., help=""),
     input_file: Path = typer.Option(..., exists=True, file_okay=True)
 ):
-    typer.echo(f"Hello")
+    # TODO: Implement
+    pass
 
 
 if __name__ == "__main__":
