@@ -12,8 +12,7 @@ class TestOmniMetricCommandLineAppTyper:
 
 Options:
   --metrics [lt|df|cfr|mttr]      [required]
-  --input-file PATH"""
-)
+  --input-file PATH""")
 
         result = runner.invoke(app, ["main", "--help"])
 
@@ -43,5 +42,4 @@ Options:
         )
 
         assert master_output in result.stdout
-
 
