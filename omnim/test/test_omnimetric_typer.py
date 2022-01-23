@@ -11,9 +11,9 @@ class TestOmniMetricCommandLineAppTyper:
         master_output = ("""Usage: main [OPTIONS]
 
 Options:
-  --metrics [lt|df|cfr|mttr]
-  --input-file TEXT
-""")
+  --metrics [lt|df|cfr|mttr]      [required]
+  --input-file PATH"""
+)
 
         result = runner.invoke(app, ["main", "--help"])
 
@@ -43,3 +43,5 @@ Options:
         )
 
         assert master_output in result.stdout
+
+
