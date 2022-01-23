@@ -21,3 +21,14 @@ class TestOmniMetricTyperMetricsOutput:
         )
 
         assert result.stdout == master_output
+
+    def test_runs_deployment_frequency_metric_from_csv_file(self):
+
+        master_output = "Average Deployment Frequency = 1.0 dep/day\n"
+
+        result = self.runner.invoke(
+            self.test_app,
+            ["--metrics", "df", "--input-file", self.data_path]
+        )
+
+        assert result.stdout == master_output
