@@ -42,4 +42,3 @@ Options:
         )
 
         assert master_output in result.stdout
-

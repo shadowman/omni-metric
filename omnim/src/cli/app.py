@@ -4,7 +4,9 @@ from pathlib import Path
 
 from omnim.src.metrics.csvloader import CsvEventsLoader
 from omnim.src.metrics.leadtime import LeadtimeMetricCalculator
-from omnim.src.metrics.deployment_frequency import DeploymentFrequencyMetricCalculator
+from omnim.src.metrics.deployment_frequency import (
+    DeploymentFrequencyMetricCalculator
+)
 
 app = typer.Typer()
 
@@ -14,7 +16,6 @@ class MetricsOptions(Enum):
     DF = "df"
     CFR = "cfr"
     MTTR = "mttr"
-
 
 
 @app.command()
