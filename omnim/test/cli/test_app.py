@@ -64,3 +64,15 @@ class TestOmniMetricTyperMetricsOutput:
         )
 
         assert result.stdout == master_output
+
+    def test_load_json_configuration_from_file(self):
+        config_file_path = "data/configuration.json"
+        data_path = "./data/mttr_data_stream.csv"
+        master_output = f"Using '{config_file_path}' as config file"
+
+        result = self.runner.invoke(
+            self.test_app,
+            ["--config-file", config_file_path, "--metrics", "mttr", "--input-file", data_path]
+        )
+
+        assert master_output in result.stdout

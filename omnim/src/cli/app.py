@@ -1,4 +1,5 @@
 import typer
+from typing import Optional
 from enum import Enum
 from pathlib import Path
 
@@ -26,9 +27,13 @@ class MetricsOptions(Enum):
 
 @app.command()
 def main(
+    config_file: Optional[Path] = typer.Option(None),
     metrics: MetricsOptions = typer.Option(..., help=""),
     input_file: Path = typer.Option(..., exists=True, file_okay=True)
 ):
+    if config_file is not None:
+        print(f"Using '{config_file}' as config file")
+
     if metrics == MetricsOptions.LT:
         calculator = LeadtimeMetricCalculator()
     elif metrics == MetricsOptions.DF:
@@ -63,6 +68,7 @@ def main(
             print("Not enough data to calculate Mean Time To Restore")
         else:
             print(f"Mean Time To Restore = {output} second(s)")
+
 
 
 if __name__ == "__main__":
