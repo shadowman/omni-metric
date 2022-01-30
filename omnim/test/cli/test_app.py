@@ -32,3 +32,21 @@ class TestOmniMetricTyperMetricsOutput:
         )
 
         assert result.stdout == master_output
+
+    def test_runs_change_failure_rate_metric_from_csv_file(self):
+        master_output = "Average Change Failure Rate = 0.0 failures/dep\n"
+
+        result = self.runner.invoke(
+            self.test_app,
+            ["--metrics", "cfr", "--input-file", self.data_path]
+        )
+
+        assert result.stdout == master_output
+
+    @pytest.mark.skip
+    def test_runs_mean_time_to_restore_metric_from_csv_file_and_inform_not_enough_data(self):  # noqa: E501
+        pass
+
+    @pytest.mark.skip
+    def test_runs_mean_time_to_restore_metric_from_csv_file(self): 
+        pass
