@@ -76,3 +76,14 @@ class TestOmniMetricTyperMetricsOutput:
         )
 
         assert master_output in result.stdout
+
+    def test_fetch_all_executions_from_github(self):
+        config_file_path = "data/configuration.json"
+        master_output = "Successfully fetched workflow execution from github\n"
+
+        result = self.runner.invoke(
+            self.test_app,
+            ["--source", "GitHubActionsForOmnimetric", "--fetch", "", "--config-file", config_file_path]
+        )
+
+        assert master_output in result.stdout

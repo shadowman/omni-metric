@@ -11,8 +11,11 @@ class TestOmniMetricCommandLineAppTyper:
         master_output = ("""Usage: main [OPTIONS]
 
 Options:
-  --metrics [lt|df|cfr|mttr]      [required]
-  --input-file PATH""")
+  --config-file PATH
+  --metrics [lt|df|cfr|mttr]
+  --input-file PATH
+  --source TEXT
+  --fetch TEXT""")
 
         result = runner.invoke(app, ["main", "--help"])
 

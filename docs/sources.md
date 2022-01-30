@@ -40,7 +40,7 @@ omni-metric -c config.json ... ") ( I can pass a configuration file )
 
 omni-metric source GitHubActionsForOmnimetric update -date 2021-10-1") ( Bring the latests executions since last sync )
 omni-metric source GitHubActionsForOmnimetric fetch") (Bring all executions)
-omni-metric source GitHubActionsForOmnimetric ") (default to update action...)
+omni-metric -c config.json source GitHubActionsForOmnimetric ") (default to update action...)
 ```
 
 # cli > sources_handler > update ... 

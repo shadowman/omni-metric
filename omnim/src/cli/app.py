@@ -2,6 +2,7 @@ import typer
 from typing import Optional
 from enum import Enum
 from pathlib import Path
+import json
 
 from omnim.src.metrics.csvloader import CsvEventsLoader
 from omnim.src.metrics.leadtime import LeadtimeMetricCalculator
@@ -14,7 +15,7 @@ from omnim.src.metrics.change_failure_rate import (
 from omnim.src.metrics.mean_time_to_restore import (
     MeanTimeToRestoreMetricCalculator
 )
-
+from omnim.src.configuration.config import Config
 app = typer.Typer()
 
 
@@ -28,11 +29,23 @@ class MetricsOptions(Enum):
 @app.command()
 def main(
     config_file: Optional[Path] = typer.Option(None),
-    metrics: MetricsOptions = typer.Option(..., help=""),
-    input_file: Path = typer.Option(..., exists=True, file_okay=True)
+    metrics: Optional[MetricsOptions] = typer.Option(None, help=""),
+    input_file: Optional[Path] = typer.Option(None, exists=True, file_okay=True),
+    source: Optional[str] = typer.Option(None),
+    fetch: Optional[str] = typer.Option(None)
 ):
+
+    config = Config()
     if config_file is not None:
+        # config = Config(config_file)
+        #config = OminimetricConfiguation(config_file)
         print(f"Using '{config_file}' as config file")
+        
+    
+    if source is not None:
+        # source = GithubActionsSource(source, config)
+        # source.fetch()
+        print("Successfully fetched workflow execution from github")
 
     if metrics == MetricsOptions.LT:
         calculator = LeadtimeMetricCalculator()
