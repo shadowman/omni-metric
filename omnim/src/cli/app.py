@@ -32,7 +32,11 @@ class MetricsOptions(Enum):
 def main(
     config_file: Optional[Path] = typer.Option(None),
     metrics: Optional[MetricsOptions] = typer.Option(None, help=""),
-    input_file: Optional[Path] = typer.Option(None, exists=True, file_okay=True),
+    input_file: Optional[Path] = typer.Option(
+        None,
+        exists=True,
+        file_okay=True
+    ),
     source: Optional[str] = typer.Option(None),
     fetch: Optional[str] = typer.Option(None)
 ):
@@ -40,7 +44,6 @@ def main(
     config = Config()
     if config_file is not None:
         config = Config(config_file)
-        #config = OminimetricConfiguation(config_file)
         print(f"Using '{config_file}' as config file")
 
     if source is not None:
@@ -82,7 +85,6 @@ def main(
             print("Not enough data to calculate Mean Time To Restore")
         else:
             print(f"Mean Time To Restore = {output} second(s)")
-
 
 
 if __name__ == "__main__":

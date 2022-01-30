@@ -12,7 +12,7 @@ class TestConfiguration:
             and config.deployment_action_name == "Greetings"
         )
 
-    def test_should_load_parameters_from_configuration_file_when_instantiated(self,):
+    def test_should_load_parameters_from_configuration_file_when_instantiated(self,):  # noqa: E501
         config_file = "./data/configuration.json"
         config = Config(config_file=config_file)
         assert (

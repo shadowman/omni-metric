@@ -5,12 +5,13 @@ import pytest
 import os
 from unittest.mock import patch
 
+
 @pytest.fixture
 def config():
     return Config()
 
-class TestGithubActionsSource:
 
+class TestGithubActionsSource:
 
     @pytest.mark.parametrize(
         "test_token",

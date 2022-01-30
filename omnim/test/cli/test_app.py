@@ -52,7 +52,7 @@ class TestOmniMetricTyperMetricsOutput:
 
         assert result.stdout == master_output
 
-    def test_runs_mean_time_to_restore_metric_from_csv_file(self): 
+    def test_runs_mean_time_to_restore_metric_from_csv_file(self):
         master_output = "Mean Time To Restore = 60.0 second(s)\n"
         data_path = "./data/mttr_data_stream.csv"
 
@@ -70,7 +70,11 @@ class TestOmniMetricTyperMetricsOutput:
 
         result = self.runner.invoke(
             app,
-            ["--config-file", config_file_path, "--metrics", "mttr", "--input-file", data_path]
+            [
+                "--config-file", config_file_path,
+                "--metrics", "mttr",
+                "--input-file", data_path
+            ]
         )
 
         assert master_output in result.stdout
@@ -81,7 +85,11 @@ class TestOmniMetricTyperMetricsOutput:
 
         result = self.runner.invoke(
             app,
-            ["--source", "GitHubActionsForOmnimetric", "--fetch", "", "--config-file", config_file_path]
+            [
+                "--source", "GitHubActionsForOmnimetric",
+                "--fetch", "",
+                "--config-file", config_file_path
+            ]
         )
 
         assert master_output in result.stdout

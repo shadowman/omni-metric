@@ -17,7 +17,7 @@ class GithubActionsSource(PipelineSource):
         self.configure(
             config.user,
             config.token,
-            config.repo, 
+            config.repo,
             config.deployment_action_name
         )
 
