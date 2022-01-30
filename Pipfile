@@ -8,6 +8,7 @@ pycli = "*"
 aiohttp = "*"
 asynctest = "*"
 typer = "*"
+async-timeout = ">=4.0.0"
 
 [dev-packages]
 pytest-asyncio = "*"

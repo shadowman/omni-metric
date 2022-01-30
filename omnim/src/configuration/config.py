@@ -5,6 +5,7 @@ from typing import Optional
 class Config:
     user: str ="jmaralc"
     repo:str ="oop_rust"
+    token: str = "fake_token"
     deployment_action_name: str ="Greetings"
 
     def __init__(self, config_file: Optional[str] = None):

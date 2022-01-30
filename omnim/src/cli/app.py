@@ -16,6 +16,9 @@ from omnim.src.metrics.mean_time_to_restore import (
     MeanTimeToRestoreMetricCalculator
 )
 from omnim.src.configuration.config import Config
+
+from omnim.src.sources.github_actions import GithubActionsSource
+
 app = typer.Typer()
 
 
@@ -42,7 +45,7 @@ def main(
         print(f"Using '{config_file}' as config file")
 
     if source is not None:
-        # source = GithubActionsSource(source, config)
+        source = GithubActionsSource(config)
         # source.fetch()
         print("Successfully fetched workflow execution from github")
 

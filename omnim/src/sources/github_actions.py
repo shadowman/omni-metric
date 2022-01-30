@@ -1,5 +1,6 @@
 from omnim.src.exceptions.exceptions import TokenNotFoundException
 from omnim.src.sources.pipeline_source import PipelineSource
+from omnim.src.configuration.config import Config
 from typing import Dict, Any
 import csv
 import aiohttp
@@ -12,7 +13,15 @@ class GithubActionsSource(PipelineSource):
     github_date_format: str = "%Y-%m-%dT%H:%M:%SZ"
     github_URI: str = "https://api.github.com"
 
-    def __init__(
+    def __init__(self, config: Config):
+        self.configure(
+            config.user,
+            config.token,
+            config.repo, 
+            config.deployment_action_name
+        )
+
+    def configure(
         self,
         user: str,
         token: str,
