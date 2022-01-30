@@ -37,11 +37,10 @@ def main(
 
     config = Config()
     if config_file is not None:
-        # config = Config(config_file)
+        config = Config(config_file)
         #config = OminimetricConfiguation(config_file)
         print(f"Using '{config_file}' as config file")
-        
-    
+
     if source is not None:
         # source = GithubActionsSource(source, config)
         # source.fetch()
