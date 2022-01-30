@@ -6,7 +6,7 @@ The one tool to monitor the 4 key metrics from the accelerate book for your envi
 
 https://miro.com/app/board/uXjVOdNGlQs=/
 
-![Python CI](https://github.com/shadowman/omni-metric/actions/workflows/delivery/badge.svg)
+[![Python CI](https://github.com/shadowman/omni-metric/actions/workflows/delivery.yml/badge.svg)](https://github.com/shadowman/omni-metric/actions/workflows/delivery.yml)
 
 # Docs
 
