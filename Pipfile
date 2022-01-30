@@ -6,12 +6,11 @@ name = "pypi"
 [packages]
 pycli = "*"
 aiohttp = "*"
-asynctest = "*"
 typer = "*"
 async-timeout = ">=4.0.0"
 
 [dev-packages]
-pytest-asyncio = "*"
+pytest-asyncio = ">=0.17.2"
 pytest = "*"
 ipython = "*"
 flake8 = "*"

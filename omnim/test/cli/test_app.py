@@ -8,7 +8,6 @@ from omnim.src.cli.app import app
 class TestOmniMetricTyperMetricsOutput:
 
     runner = CliRunner()
-    test_app = app
     data_path = "./data/sample.csv"
 
     def test_runs_lead_time_metric_from_csv_file(self):
@@ -16,7 +15,7 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = "Average Build to Deploy Leadtime = 10.0 s\n"
 
         result = self.runner.invoke(
-            self.test_app,
+            app,
             ["--metrics", "lt", "--input-file", self.data_path]
         )
 
@@ -27,7 +26,7 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = "Average Deployment Frequency = 1.0 dep/day\n"
 
         result = self.runner.invoke(
-            self.test_app,
+            app,
             ["--metrics", "df", "--input-file", self.data_path]
         )
 
@@ -37,7 +36,7 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = "Average Change Failure Rate = 0.0 failures/dep\n"
 
         result = self.runner.invoke(
-            self.test_app,
+            app,
             ["--metrics", "cfr", "--input-file", self.data_path]
         )
 
@@ -47,7 +46,7 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = "Not enough data to calculate Mean Time To Restore\n"
 
         result = self.runner.invoke(
-            self.test_app,
+            app,
             ["--metrics", "mttr", "--input-file", self.data_path]
         )
 
@@ -58,7 +57,7 @@ class TestOmniMetricTyperMetricsOutput:
         data_path = "./data/mttr_data_stream.csv"
 
         result = self.runner.invoke(
-            self.test_app,
+            app,
             ["--metrics", "mttr", "--input-file", data_path]
         )
 
@@ -70,7 +69,7 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = f"Using '{config_file_path}' as config file"
 
         result = self.runner.invoke(
-            self.test_app,
+            app,
             ["--config-file", config_file_path, "--metrics", "mttr", "--input-file", data_path]
         )
 
@@ -81,7 +80,7 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = "Successfully fetched workflow execution from github\n"
 
         result = self.runner.invoke(
-            self.test_app,
+            app,
             ["--source", "GitHubActionsForOmnimetric", "--fetch", "", "--config-file", config_file_path]
         )
 
