@@ -6,6 +6,8 @@ The one tool to monitor the 4 key metrics from the accelerate book for your envi
 
 https://miro.com/app/board/uXjVOdNGlQs=/
 
+![Python CI](https://github.com/shadownman/omni-metric/actions/workflows/delivery/badge.svg)
+
 # Docs
 
 We store documentation related to the project under the folder [docs/](./docs)
