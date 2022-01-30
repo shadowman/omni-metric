@@ -43,10 +43,24 @@ class TestOmniMetricTyperMetricsOutput:
 
         assert result.stdout == master_output
 
-    @pytest.mark.skip
     def test_runs_mean_time_to_restore_metric_from_csv_file_and_inform_not_enough_data(self):  # noqa: E501
-        pass
+        master_output = "Not enough data to calculate Mean Time To Restore\n"
 
-    @pytest.mark.skip
+
+        result = self.runner.invoke(
+            self.test_app,
+            ["--metrics", "mttr", "--input-file", self.data_path]
+        )
+
+        assert result.stdout == master_output
+
     def test_runs_mean_time_to_restore_metric_from_csv_file(self): 
-        pass
+        master_output = "Mean Time To Restore = 60.0 second(s)\n"
+        data_path = "./data/mttr_data_stream.csv"
+
+        result = self.runner.invoke(
+            self.test_app,
+            ["--metrics", "mttr", "--input-file", data_path]
+        )
+
+        assert result.stdout == master_output

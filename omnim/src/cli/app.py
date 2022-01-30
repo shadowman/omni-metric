@@ -10,6 +10,9 @@ from omnim.src.metrics.deployment_frequency import (
 from omnim.src.metrics.change_failure_rate import (
     ChangeFailureRateMetricCalculator
 )
+from omnim.src.metrics.mean_time_to_restore import (
+    MeanTimeToRestoreMetricCalculator
+)
 
 app = typer.Typer()
 
@@ -32,6 +35,8 @@ def main(
         calculator = DeploymentFrequencyMetricCalculator()
     elif metrics == MetricsOptions.CFR:
         calculator = ChangeFailureRateMetricCalculator()
+    elif metrics == MetricsOptions.MTTR:
+        calculator = MeanTimeToRestoreMetricCalculator()
 
     events_loader = CsvEventsLoader(input_file)
 
@@ -53,6 +58,11 @@ def main(
         print(f"Average Deployment Frequency = {output} dep/day")
     elif metrics == MetricsOptions.CFR:
         print(f"Average Change Failure Rate = {output} failures/dep")
+    elif metrics == MetricsOptions.MTTR:
+        if output is None:
+            print("Not enough data to calculate Mean Time To Restore")
+        else:
+            print(f"Mean Time To Restore = {output} second(s)")
 
 
 if __name__ == "__main__":
