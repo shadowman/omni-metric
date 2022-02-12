@@ -1,21 +1,19 @@
-import typer
-from typing import Optional
+import asyncio
 from enum import Enum
 from pathlib import Path
+from typing import Optional
 
-from omnim.src.metrics.csvloader import CsvEventsLoader
-from omnim.src.metrics.leadtime import LeadtimeMetricCalculator
-from omnim.src.metrics.deployment_frequency import (
-    DeploymentFrequencyMetricCalculator
-)
-from omnim.src.metrics.change_failure_rate import (
-    ChangeFailureRateMetricCalculator
-)
-from omnim.src.metrics.mean_time_to_restore import (
-    MeanTimeToRestoreMetricCalculator
-)
+import typer
+
 from omnim.src.configuration.config import Config
-
+from omnim.src.loaders.csvloader import CsvEventsLoader
+from omnim.src.metrics.change_failure_rate import \
+    ChangeFailureRateMetricCalculator
+from omnim.src.metrics.deployment_frequency import \
+    DeploymentFrequencyMetricCalculator
+from omnim.src.metrics.leadtime import LeadtimeMetricCalculator
+from omnim.src.metrics.mean_time_to_restore import \
+    MeanTimeToRestoreMetricCalculator
 from omnim.src.sources.github_actions import GithubActionsSource
 
 app = typer.Typer()
@@ -32,24 +30,15 @@ class MetricsOptions(Enum):
 def main(
     config_file: Optional[Path] = typer.Option(None),
     metrics: Optional[MetricsOptions] = typer.Option(None, help=""),
-    input_file: Optional[Path] = typer.Option(
-        None,
-        exists=True,
-        file_okay=True
-    ),
+    input_file: Optional[Path] = typer.Option(None, exists=True, file_okay=True),
     source: Optional[str] = typer.Option(None),
-    fetch: Optional[str] = typer.Option(None)
+    fetch: Optional[str] = typer.Option(None),
 ):
 
     config = Config()
     if config_file is not None:
         config = Config(config_file)
         print(f"Using '{config_file}' as config file")
-
-    if source is not None:
-        source = GithubActionsSource(config)
-        # source.fetch()
-        print("Successfully fetched workflow execution from github")
 
     if metrics == MetricsOptions.LEAD_TIME:
         calculator = LeadtimeMetricCalculator()
@@ -62,6 +51,12 @@ def main(
 
     events_loader = CsvEventsLoader(input_file)
 
+    if source is not None:
+        source = GithubActionsSource(config)
+        asyncio.run(source.listen_source())
+        events_loader = CsvEventsLoader(source.target)
+        print("Successfully fetched workflow execution from github")
+
     try:
         events_loader.load()
         events = events_loader.get_all_events()
@@ -71,11 +66,7 @@ def main(
     output = calculator.calculate(events)
 
     if metrics == MetricsOptions.LEAD_TIME:
-        print(
-            "Average Build to Deploy Leadtime =",
-            output.total_seconds(),
-            "s"
-        )
+        print("Average Build to Deploy Leadtime =", output.total_seconds(), "s")
     elif metrics == MetricsOptions.DEPLOYMENT_FREQUENCY:
         print(f"Average Deployment Frequency = {output} dep/day")
     elif metrics == MetricsOptions.CHANGE_FAILURE_RATE:

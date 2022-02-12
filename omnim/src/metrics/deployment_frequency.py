@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 from typing import List
+
 from omnim.src.events import EventType
 
 
 class DeploymentFrequencyMetricCalculator:
-
     def __init__(self):
         pass
 

@@ -1,13 +1,11 @@
 import datetime
 
-from omnim.src.metrics.deployment_frequency import (
+from omnim.src.metrics.deployment_frequency import \
     DeploymentFrequencyMetricCalculator
-)
 from omnim.src.metrics.leadtime import WorkflowEvent
 
 
 class TestDeploymentFrequencyCalculator:
-
     def test_it_should_return_no_frequency_with_no_events(self):
 
         metric = DeploymentFrequencyMetricCalculator()
@@ -16,14 +14,14 @@ class TestDeploymentFrequencyCalculator:
 
         assert result is None
 
-    def test_it_should_return_no_frequency_with_no_deployment_success_event(self):  # noqa: E501
+    def test_it_should_return_no_frequency_with_no_deployment_success_event(
+        self,
+    ):  # noqa: E501
 
         metric = DeploymentFrequencyMetricCalculator()
         today = datetime.datetime.today()
 
-        events_stream = (
-            WorkflowEvent(today, "build_success"),
-        )
+        events_stream = (WorkflowEvent(today, "build_success"),)
 
         result = metric.calculate(events_stream)
 
@@ -58,7 +56,9 @@ class TestDeploymentFrequencyCalculator:
 
         assert result == 0.5
 
-    def test_it_should_return_deployment_frequency_of_0_666_for_two_success_deployments_in_3_days(self):  # noqa: E501
+    def test_it_should_return_deployment_frequency_of_0_666_for_two_success_deployments_in_3_days(  # noqa: E501
+        self,
+    ):
 
         metric = DeploymentFrequencyMetricCalculator()
         today = datetime.datetime.today()
@@ -74,4 +74,4 @@ class TestDeploymentFrequencyCalculator:
 
         result = metric.calculate(events_stream)
 
-        assert result == 2/3
+        assert result == 2 / 3

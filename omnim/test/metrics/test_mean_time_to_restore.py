@@ -1,14 +1,12 @@
 import datetime
 
-from omnim.src.metrics.mean_time_to_restore import (
-    MeanTimeToRestoreMetricCalculator
-)
-from omnim.src.metrics.leadtime import WorkflowEvent
 from omnim.src.events import EventType
+from omnim.src.metrics.leadtime import WorkflowEvent
+from omnim.src.metrics.mean_time_to_restore import \
+    MeanTimeToRestoreMetricCalculator
 
 
 class TestMeanTimeToRestoreMetricCalculator:
-
     def test_it_should_return_no_mttr_with_no_events(self):
 
         events = []
@@ -27,70 +25,70 @@ class TestMeanTimeToRestoreMetricCalculator:
 
         assert result is None
 
-    def test_should_return_mttr_of_one_minute_in_seconds_on_detected_error(self):  # noqa: E501
+    def test_should_return_mttr_of_one_minute_in_seconds_on_detected_error(
+        self,
+    ):  # noqa: E501
         today = datetime.datetime.today()
         events = [
-            WorkflowEvent(
-                datetime=today,
-                data="deploy_success"
-            ),
+            WorkflowEvent(datetime=today, data="deploy_success"),
             WorkflowEvent(
                 datetime=today + datetime.timedelta(minutes=1),
                 type=EventType.SERVICE_FAILING,
-                data="There has been an error"
+                data="There has been an error",
             ),
             WorkflowEvent(
                 datetime=today + datetime.timedelta(minutes=2),
                 type=EventType.SERVICE_RESTORED,
-                data="Service is restored"
-            )
+                data="Service is restored",
+            ),
         ]
 
         result = MeanTimeToRestoreMetricCalculator().calculate(events)
 
         assert result == 60
 
-    def test_should_take_the_first_error_timestamp_when_detected_service_error_twice(self):  # noqa: E501
+    def test_should_take_the_first_error_timestamp_when_detected_service_error_twice(
+        self,
+    ):  # noqa: E501
         today = datetime.datetime.today()
         events = [
-            WorkflowEvent(
-                datetime=today,
-                data="deploy_success"
-            ),
+            WorkflowEvent(datetime=today, data="deploy_success"),
             WorkflowEvent(
                 datetime=today + datetime.timedelta(minutes=1),
                 type=EventType.SERVICE_FAILING,
-                data="There has been an error"
+                data="There has been an error",
             ),
             WorkflowEvent(
                 datetime=today + datetime.timedelta(minutes=2),
                 type=EventType.SERVICE_FAILING,
-                data="Service is restored"
+                data="Service is restored",
             ),
             WorkflowEvent(
                 datetime=today + datetime.timedelta(minutes=3),
                 type=EventType.SERVICE_RESTORED,
-                data="Service is restored"
-            )
+                data="Service is restored",
+            ),
         ]
 
         result = MeanTimeToRestoreMetricCalculator().calculate(events)
 
         assert result == 120
 
-    def test_should_return_none_if_a_service_is_restored_before_service_failing(self):  # noqa: E501
+    def test_should_return_none_if_a_service_is_restored_before_service_failing(
+        self,
+    ):  # noqa: E501
         today = datetime.datetime.today()
         events = [
             WorkflowEvent(
                 datetime=today + datetime.timedelta(minutes=1),
                 type=EventType.SERVICE_RESTORED,
-                data="There has been an error"
+                data="There has been an error",
             ),
             WorkflowEvent(
                 datetime=today + datetime.timedelta(minutes=2),
                 type=EventType.SERVICE_FAILING,
-                data="Service is restored"
-            )
+                data="Service is restored",
+            ),
         ]
 
         result = MeanTimeToRestoreMetricCalculator().calculate(events)

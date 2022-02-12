@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 from typing import Optional
 
 
@@ -8,7 +9,7 @@ class Config:
     token: str = "fake_token"
     deployment_action_name: str = "Greetings"
 
-    def __init__(self, config_file: Optional[str] = None):
+    def __init__(self, config_file: Optional[Path] = None):
         if config_file is not None:
             with open(config_file, "r") as fid:
                 config = json.load(fid)

@@ -1,6 +1,7 @@
-import os
-import pytest
 import json
+import os
+
+import pytest
 
 
 @pytest.fixture
@@ -12,5 +13,5 @@ def github_response():
     yield github_response
 
     # Tear down
-    if os.path.isfile("result.csv"):
-        os.remove("result.csv")
+    if os.path.isfile("./data/result.csv"):
+        os.remove("./data/result.csv")

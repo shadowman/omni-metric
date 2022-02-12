@@ -4,7 +4,6 @@ from omnim.src.events import EventType
 
 
 class LeadtimeMetricCalculator:
-
     def calculate(self, events=()):
         total_time = datetime.timedelta()
 
@@ -19,13 +18,12 @@ class LeadtimeMetricCalculator:
             if event.type == EventType.BUILD_SUCCESS:
                 pipeline_execution["build_time"] = event.datetime
             if (
-                event.type == EventType.DEPLOY_SUCCESS and
-                pipeline_execution["build_time"] is not None
+                event.type == EventType.DEPLOY_SUCCESS
+                and pipeline_execution["build_time"] is not None
             ):
                 pipeline_execution["deploy_time"] = event.datetime
                 total_time += (
-                    pipeline_execution["deploy_time"] -
-                    pipeline_execution["build_time"]
+                    pipeline_execution["deploy_time"] - pipeline_execution["build_time"]
                 )
                 deploys_count += 1
 
@@ -37,12 +35,7 @@ class LeadtimeMetricCalculator:
 
 
 class WorkflowEvent:
-    def __init__(
-        self,
-        datetime=datetime.datetime.today(),
-        type="null",
-        data=""
-    ):
+    def __init__(self, datetime=datetime.datetime.today(), type="null", data=""):
         self.datetime = datetime
         self.type = EventType(type)
         self.data = data

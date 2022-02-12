@@ -1,10 +1,8 @@
 import abc
-
 from typing import Dict
 
 
 class PipelineSource(abc.ABC):
-
     @abc.abstractmethod
     def _pull(self):
         raise NotImplementedError("This is still work in progress")

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 from typing import List
+
 from omnim.src.events import EventType
 
 
 class ChangeFailureRateMetricCalculator:
-
     def __init__(self):
         pass
 

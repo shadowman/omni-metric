@@ -1,11 +1,11 @@
 import csv
 import datetime
 from os.path import exists
+
 from omnim.src.metrics.leadtime import WorkflowEvent
 
 
 class CsvEventsLoader:
-
     def __init__(self, file=None) -> None:
         self.file_path = file
         self._events = []
@@ -16,12 +16,10 @@ class CsvEventsLoader:
                 "Please check that the file path provided is correct."
             )
 
-        with open(self.file_path, newline='') as csvfile:
+        with open(self.file_path, newline="") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                event_datetime = (
-                    datetime.datetime.fromtimestamp(int(row["datetime"]))
-                )
+                event_datetime = datetime.datetime.fromtimestamp(int(row["datetime"]))
                 event_name = row["event_name"]
                 event_data = row["data"]
 
@@ -31,6 +29,7 @@ class CsvEventsLoader:
 
     def get_all_events(self):
         return self._events
+
 
 # Workflow
 # class GithubEventsLoader

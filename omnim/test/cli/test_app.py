@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import pytest
 from typer.testing import CliRunner
 
@@ -9,14 +11,14 @@ class TestOmniMetricTyperMetricsOutput:
 
     runner = CliRunner()
     data_path = "./data/sample.csv"
+    config_path = "./data/configuration.json"
 
     def test_runs_lead_time_metric_from_csv_file(self):
 
         master_output = "Average Build to Deploy Leadtime = 10.0 s\n"
 
         result = self.runner.invoke(
-            app,
-            ["--metrics", "lt", "--input-file", self.data_path]
+            app, ["--metrics", "lt", "--input-file", self.data_path]
         )
 
         assert result.stdout == master_output
@@ -26,8 +28,7 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = "Average Deployment Frequency = 1.0 dep/day\n"
 
         result = self.runner.invoke(
-            app,
-            ["--metrics", "df", "--input-file", self.data_path]
+            app, ["--metrics", "df", "--input-file", self.data_path]
         )
 
         assert result.stdout == master_output
@@ -36,18 +37,18 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = "Average Change Failure Rate = 0.0 failures/dep\n"
 
         result = self.runner.invoke(
-            app,
-            ["--metrics", "cfr", "--input-file", self.data_path]
+            app, ["--metrics", "cfr", "--input-file", self.data_path]
         )
 
         assert result.stdout == master_output
 
-    def test_runs_mean_time_to_restore_metric_from_csv_file_and_inform_not_enough_data(self):  # noqa: E501
+    def test_runs_mean_time_to_restore_metric_from_csv_file_and_inform_not_enough_data(
+        self,
+    ):  # noqa: E501
         master_output = "Not enough data to calculate Mean Time To Restore\n"
 
         result = self.runner.invoke(
-            app,
-            ["--metrics", "mttr", "--input-file", self.data_path]
+            app, ["--metrics", "mttr", "--input-file", self.data_path]
         )
 
         assert result.stdout == master_output
@@ -57,8 +58,7 @@ class TestOmniMetricTyperMetricsOutput:
         data_path = "./data/mttr_data_stream.csv"
 
         result = self.runner.invoke(
-            app,
-            ["--metrics", "mttr", "--input-file", data_path]
+            app, ["--metrics", "mttr", "--input-file", data_path]
         )
 
         assert result.stdout == master_output
@@ -71,14 +71,18 @@ class TestOmniMetricTyperMetricsOutput:
         result = self.runner.invoke(
             app,
             [
-                "--config-file", config_file_path,
-                "--metrics", "mttr",
-                "--input-file", data_path
-            ]
+                "--config-file",
+                config_file_path,
+                "--metrics",
+                "mttr",
+                "--input-file",
+                data_path,
+            ],
         )
 
         assert master_output in result.stdout
 
+    @pytest.mark.xfail
     def test_fetch_all_executions_from_github(self):
         config_file_path = "data/configuration.json"
         master_output = "Successfully fetched workflow execution from github\n"
@@ -86,10 +90,36 @@ class TestOmniMetricTyperMetricsOutput:
         result = self.runner.invoke(
             app,
             [
-                "--source", "GitHubActionsForOmnimetric",
-                "--fetch", "",
-                "--config-file", config_file_path
-            ]
+                "--source",
+                "GitHubActionsForOmnimetric",
+                "--fetch",
+                "",
+                "--config-file",
+                config_file_path,
+            ],
         )
-
         assert master_output in result.stdout
+
+    def test_runs_deployment_frequency_metric_from_source_when_configuration_for_that_source_is_provided(  # noqa: E501
+        self, github_response
+    ):
+
+        with patch(
+            "omnim.src.sources.github_actions.GithubActionsSource._pull",
+            return_value=github_response,
+        ):
+            master_output = "Average Deployment Frequency = 2.0 dep/day\n"
+
+            result = self.runner.invoke(
+                app,
+                [
+                    "--metrics",
+                    "df",
+                    "--config-file",
+                    self.config_path,
+                    "--source",
+                    "github",
+                ],
+            )
+
+            assert master_output in result.stdout

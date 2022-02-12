@@ -1,12 +1,11 @@
-from datetime import datetime
 import unittest
+from datetime import datetime
 
 from omnim.src.events import EventType
-from omnim.src.metrics.csvloader import CsvEventsLoader
+from omnim.src.loaders.csvloader import CsvEventsLoader
 
 
 class CsvEventsLoaderTests(unittest.TestCase):
-
     def setUp(self) -> None:
         super().setUp()
         self.test_csv_loader = CsvEventsLoader("./data/sample.csv")
