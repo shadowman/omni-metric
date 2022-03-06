@@ -45,7 +45,10 @@ class TestOmniMetricTyperMetricsOutput:
     def test_runs_mean_time_to_restore_metric_from_csv_file_and_inform_not_enough_data(
         self,
     ):  # noqa: E501
-        master_output = "Not enough data to calculate Mean Time To Restore\n"
+        master_output = (
+            "This metric returned an empty value. "
+            "It is likely that there was not enough information to compute it\n"
+        )
 
         result = self.runner.invoke(
             app, ["--metrics", "mttr", "--input-file", self.data_path]

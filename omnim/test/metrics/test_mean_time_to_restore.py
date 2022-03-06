@@ -13,7 +13,7 @@ class TestMeanTimeToRestoreMetricCalculator:
 
         result = MeanTimeToRestoreMetricCalculator().calculate(events)
 
-        assert result is None
+        assert result.mean_time_to_restore is None
 
     def test_should_return_mttr_equals_to_none_if_error_does_not_exists(self):
         today = datetime.datetime.today()
@@ -23,7 +23,7 @@ class TestMeanTimeToRestoreMetricCalculator:
 
         result = MeanTimeToRestoreMetricCalculator().calculate(events)
 
-        assert result is None
+        assert result.mean_time_to_restore is None
 
     def test_should_return_mttr_of_one_minute_in_seconds_on_detected_error(
         self,
@@ -45,7 +45,7 @@ class TestMeanTimeToRestoreMetricCalculator:
 
         result = MeanTimeToRestoreMetricCalculator().calculate(events)
 
-        assert result == 60
+        assert result.mean_time_to_restore == 60
 
     def test_should_take_the_first_error_timestamp_when_detected_service_error_twice(
         self,
@@ -72,7 +72,7 @@ class TestMeanTimeToRestoreMetricCalculator:
 
         result = MeanTimeToRestoreMetricCalculator().calculate(events)
 
-        assert result == 120
+        assert result.mean_time_to_restore == 120
 
     def test_should_return_none_if_a_service_is_restored_before_service_failing(
         self,
@@ -93,4 +93,5 @@ class TestMeanTimeToRestoreMetricCalculator:
 
         result = MeanTimeToRestoreMetricCalculator().calculate(events)
 
-        assert result is None
+        assert result.mean_time_to_restore is None
+

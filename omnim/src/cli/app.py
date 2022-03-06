@@ -74,10 +74,11 @@ def main(
     elif metrics == MetricsOptions.CHANGE_FAILURE_RATE:
         output.report()
     elif metrics == MetricsOptions.MEAN_TIME_TO_RESTORE:
-        if output is None:
-            print("Not enough data to calculate Mean Time To Restore")
-        else:
-            print(f"Mean Time To Restore = {output} second(s)")
+        output.report()
+        # if output is None:
+        #     print("Not enough data to calculate Mean Time To Restore")
+        # else:
+        #     print(f"Mean Time To Restore = {output} second(s)")
 
 
 if __name__ == "__main__":

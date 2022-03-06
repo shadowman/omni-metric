@@ -43,3 +43,16 @@ class ChangeFailureRateMetricResult(BaseModel, MetricResult):
             )
 
         return f"Average Change Failure Rate = {self.change_failure_rate} failures/dep"
+
+
+class MeanTimeToRestoreMetricResult(BaseModel, MetricResult):
+    mean_time_to_restore: Optional[float]
+
+    def __str__(self) -> str:
+        if self.mean_time_to_restore is None:
+            return (
+                "This metric returned an empty value. "
+                "It is likely that there was not enough information to compute it"
+            )
+
+        return f"Mean Time To Restore = {self.mean_time_to_restore} second(s)"

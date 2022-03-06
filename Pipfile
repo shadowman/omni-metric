@@ -26,4 +26,4 @@ python_version = "3.9"
 allow_prereleases = true
 
 [scripts]
-test-watch = "ptw ./"
+test-watch = "ptw ./ -v"

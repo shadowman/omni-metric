@@ -1,6 +1,7 @@
 from typing import List
 
 from omnim.src.events import EventType
+from omnim.src.metrics.metric_result import MeanTimeToRestoreMetricResult
 
 
 class MeanTimeToRestoreMetricCalculator:
@@ -28,4 +29,4 @@ class MeanTimeToRestoreMetricCalculator:
         if len(times_to_restore) > 0:
             mean_time_to_restore = sum(times_to_restore) / len(times_to_restore)
 
-        return mean_time_to_restore
+        return MeanTimeToRestoreMetricResult(mean_time_to_restore=mean_time_to_restore)
