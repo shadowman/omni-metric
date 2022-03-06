@@ -133,3 +133,4 @@ dmypy.json
 .idea/
 
 data/result.csv
+config.json
