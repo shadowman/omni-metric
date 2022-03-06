@@ -10,7 +10,7 @@ https://miro.com/app/board/uXjVOdNGlQs=/
 
 # Docs
 
-We store documentation related to the project under the folder [docs/](./docs)
+We store documentation related to the project under the folder [docs/](./docs/README.md)
 
 # Definitions
 
