@@ -20,6 +20,20 @@ Options:
 
         assert master_output in result.stdout
 
+    def test_has_default_help_message_without_arguments(self):
+        master_output = """Usage: main [OPTIONS]
+
+Options:
+  --config-file PATH
+  --metrics [lt|df|cfr|mttr]
+  --input-file PATH
+  --source TEXT
+  --fetch TEXT"""
+
+        result = runner.invoke(app)
+
+        assert master_output in result.stdout
+
     def test_should_raise_error_for_invalid_metric_type(self):
         wrong_metric = "whatever"
         master_output = (

@@ -27,7 +27,9 @@ class MetricsOptions(Enum):
     MEAN_TIME_TO_RESTORE = "mttr"
 
 
-@app.command()
+@app.command(
+    no_args_is_help=True
+)
 def main(
     config_file: Optional[Path] = typer.Option(None),
     metrics: Optional[MetricsOptions] = typer.Option(None, help=""),
