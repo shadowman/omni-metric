@@ -63,26 +63,26 @@ class GithubActionsSource(PipelineSource):
         results = await self._pull()
 
         work_flows = results.get("workflow_runs")
+        if work_flows is not None:
+            for work_flow in work_flows:
+                if work_flow.get("name") != self.deployment_action_name:
+                    continue
+                conclusion = work_flow.get("conclusion")
 
-        for work_flow in work_flows:
-            if work_flow.get("name") != self.deployment_action_name:
-                continue
-            conclusion = work_flow.get("conclusion")
+                created_at = work_flow.get("created_at")
+                created_at = datetime.datetime.strptime(
+                    created_at,
+                    self.github_date_format,
+                )
+                timestamp = int((created_at - ZERO_TIME) / datetime.timedelta(seconds=1))
 
-            created_at = work_flow.get("created_at")
-            created_at = datetime.datetime.strptime(
-                created_at,
-                self.github_date_format,
-            )
-            timestamp = int((created_at - ZERO_TIME) / datetime.timedelta(seconds=1))
-
-            await self._register_new_event(
-                {
-                    "timestamp": timestamp,
-                    "event_name": self.github_events.get(conclusion, "null"),
-                    "data": self.repo,
-                }
-            )
+                await self._register_new_event(
+                    {
+                        "timestamp": timestamp,
+                        "event_name": self.github_events.get(conclusion, "null"),
+                        "data": self.repo,
+                    }
+                )
 
     async def _pull(self) -> Dict[str, Any]:
         async with aiohttp.ClientSession() as session:

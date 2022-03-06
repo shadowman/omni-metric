@@ -85,7 +85,6 @@ class TestOmniMetricTyperMetricsOutput:
 
         assert master_output in result.stdout
 
-    @pytest.mark.xfail
     def test_fetch_all_executions_from_github(self):
         config_file_path = "data/configuration.json"
         master_output = "Successfully fetched workflow execution from github\n"
