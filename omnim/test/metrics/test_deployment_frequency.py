@@ -12,7 +12,7 @@ class TestDeploymentFrequencyCalculator:
 
         result = metric.calculate([])
 
-        assert result is None
+        assert result.deployment_frequency is None
 
     def test_it_should_return_no_frequency_with_no_deployment_success_event(
         self,
@@ -25,7 +25,7 @@ class TestDeploymentFrequencyCalculator:
 
         result = metric.calculate(events_stream)
 
-        assert result is None
+        assert result.deployment_frequency is None
 
     def test_it_should_return_deployment_frequency_of_one(self):
 
@@ -39,7 +39,7 @@ class TestDeploymentFrequencyCalculator:
 
         result = metric.calculate(events_stream)
 
-        assert result == 1.0
+        assert result.deployment_frequency == 1.0
 
     def test_it_should_return_deployment_frequency_of_0_5(self):
 
@@ -54,7 +54,7 @@ class TestDeploymentFrequencyCalculator:
 
         result = metric.calculate(events_stream)
 
-        assert result == 0.5
+        assert result.deployment_frequency == 0.5
 
     def test_it_should_return_deployment_frequency_of_0_666_for_two_success_deployments_in_3_days(  # noqa: E501
         self,
@@ -74,4 +74,4 @@ class TestDeploymentFrequencyCalculator:
 
         result = metric.calculate(events_stream)
 
-        assert result == 2 / 3
+        assert result.deployment_frequency == 2 / 3

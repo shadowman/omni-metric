@@ -14,6 +14,7 @@ from omnim.src.metrics.deployment_frequency import \
 from omnim.src.metrics.leadtime import LeadtimeMetricCalculator
 from omnim.src.metrics.mean_time_to_restore import \
     MeanTimeToRestoreMetricCalculator
+from omnim.src.metrics.metric_result import MetricResult
 from omnim.src.sources.github_actions import GithubActionsSource
 
 app = typer.Typer()
@@ -40,6 +41,7 @@ def main(
         config = Config(config_file)
         print(f"Using '{config_file}' as config file")
 
+    # TODO: Add empty calculator as default case
     if metrics == MetricsOptions.LEAD_TIME:
         calculator = LeadtimeMetricCalculator()
     elif metrics == MetricsOptions.DEPLOYMENT_FREQUENCY:
@@ -63,12 +65,12 @@ def main(
     except Exception as e:
         raise e
 
-    output = calculator.calculate(events)
+    output: MetricResult = calculator.calculate(events)
 
     if metrics == MetricsOptions.LEAD_TIME:
         print("Average Build to Deploy Leadtime =", output.total_seconds(), "s")
     elif metrics == MetricsOptions.DEPLOYMENT_FREQUENCY:
-        print(f"Average Deployment Frequency = {output} dep/day")
+        output.report()
     elif metrics == MetricsOptions.CHANGE_FAILURE_RATE:
         print(f"Average Change Failure Rate = {output} failures/dep")
     elif metrics == MetricsOptions.MEAN_TIME_TO_RESTORE:
