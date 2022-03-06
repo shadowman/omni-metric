@@ -41,7 +41,7 @@ def main(
         config = Config(config_file)
         print(f"Using '{config_file}' as config file")
 
-    # TODO: Add empty calculator as default case
+    calculator = None
     if metrics == MetricsOptions.LEAD_TIME:
         calculator = LeadtimeMetricCalculator()
     elif metrics == MetricsOptions.DEPLOYMENT_FREQUENCY:
@@ -65,8 +65,9 @@ def main(
     except Exception as e:
         raise e
 
-    output: MetricResult = calculator.calculate(events)
-    output.report()
+    if calculator is not None:
+        output: MetricResult = calculator.calculate(events)
+        output.report()
 
 
 if __name__ == "__main__":

@@ -63,6 +63,7 @@ class GithubActionsSource(PipelineSource):
         results = await self._pull()
 
         work_flows = results.get("workflow_runs")
+
         for work_flow in work_flows:
             if work_flow.get("name") != self.deployment_action_name:
                 continue
