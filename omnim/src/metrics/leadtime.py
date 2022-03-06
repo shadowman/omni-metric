@@ -1,10 +1,13 @@
 import datetime
 
 from omnim.src.events import EventType
+from omnim.src.metrics.metric_result import LeadtimeMetricResult
 
 
 class LeadtimeMetricCalculator:
     def calculate(self, events=()):
+        average_lead_time = None
+
         total_time = datetime.timedelta()
 
         deploys_count = 0
@@ -27,11 +30,10 @@ class LeadtimeMetricCalculator:
                 )
                 deploys_count += 1
 
-        average_leadtime = None
-
         if deploys_count > 0:
-            average_leadtime = total_time / deploys_count
-        return average_leadtime
+            average_lead_time = total_time / deploys_count
+
+        return LeadtimeMetricResult(lead_time=average_lead_time)
 
 
 class WorkflowEvent:

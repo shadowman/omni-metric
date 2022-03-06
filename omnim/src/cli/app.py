@@ -66,19 +66,7 @@ def main(
         raise e
 
     output: MetricResult = calculator.calculate(events)
-
-    if metrics == MetricsOptions.LEAD_TIME:
-        print("Average Build to Deploy Leadtime =", output.total_seconds(), "s")
-    elif metrics == MetricsOptions.DEPLOYMENT_FREQUENCY:
-        output.report()
-    elif metrics == MetricsOptions.CHANGE_FAILURE_RATE:
-        output.report()
-    elif metrics == MetricsOptions.MEAN_TIME_TO_RESTORE:
-        output.report()
-        # if output is None:
-        #     print("Not enough data to calculate Mean Time To Restore")
-        # else:
-        #     print(f"Mean Time To Restore = {output} second(s)")
+    output.report()
 
 
 if __name__ == "__main__":

@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from datetime import timedelta
+
 from pydantic import BaseModel
 from typing import Optional
 
@@ -56,3 +58,16 @@ class MeanTimeToRestoreMetricResult(BaseModel, MetricResult):
             )
 
         return f"Mean Time To Restore = {self.mean_time_to_restore} second(s)"
+
+
+class LeadtimeMetricResult(BaseModel, MetricResult):
+    lead_time: Optional[timedelta]
+
+    def __str__(self) -> str:
+        if self.lead_time is None:
+            return (
+                "This metric returned an empty value. "
+                "It is likely that there was not enough information to compute it"
+            )
+        else:
+            return f"Average Build to Deploy Leadtime = {self.lead_time.total_seconds()} s"

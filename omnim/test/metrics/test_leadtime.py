@@ -11,7 +11,7 @@ class LeadTimeCalculatorTests(unittest.TestCase):
 
         result = metric.calculate([])
 
-        self.assertEqual(None, result)
+        assert result.lead_time is None
 
     def test_it_should_return_average_leadtime_of_event_stream_in_delta_type(
         self,
@@ -26,12 +26,12 @@ class LeadTimeCalculatorTests(unittest.TestCase):
 
         result = metric.calculate(events_stream)
 
-        self.assertEqual(lead_time, result)
-        self.assertEqual(timedelta, type(result))
+        assert result.lead_time == lead_time
 
     def test_it_should_return_average_leadtime_from_successful_build_to_successful_deploy(  # noqa: E501
         self,
     ):
+        expected_result = timedelta(seconds=20)
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()
         events_stream = (
@@ -42,7 +42,7 @@ class LeadTimeCalculatorTests(unittest.TestCase):
 
         result = metric.calculate(events_stream)
 
-        self.assertEqual(timedelta(seconds=20), result)
+        assert result.lead_time == expected_result
 
     def test_it_should_not_return_an_average_if_no_successful_deploy_is_found(
         self,
@@ -56,7 +56,7 @@ class LeadTimeCalculatorTests(unittest.TestCase):
 
         result = metric.calculate(events_stream)
 
-        self.assertEqual(None, result)
+        assert result.lead_time is None
 
     def test_it_should_not_return_an_average_if_deploy_is_not_successful(self):
         metric = LeadtimeMetricCalculator()
@@ -69,7 +69,8 @@ class LeadTimeCalculatorTests(unittest.TestCase):
 
         result = metric.calculate(events_stream)
 
-        self.assertEqual(None, result)
+        assert result.lead_time is None
+
 
     def test_it_should_not_return_an_average_if_build_is_not_successful(self):
         metric = LeadtimeMetricCalculator()
@@ -82,7 +83,7 @@ class LeadTimeCalculatorTests(unittest.TestCase):
 
         result = metric.calculate(events_stream)
 
-        self.assertEqual(None, result)
+        assert result.lead_time is None
 
     def test_it_should_not_return_an_average_if_build_is_not_successful_and_deploy_succeeded(  # noqa: E501
         self,
@@ -97,11 +98,12 @@ class LeadTimeCalculatorTests(unittest.TestCase):
 
         result = metric.calculate(events_stream)
 
-        self.assertEqual(None, result)
+        assert result.lead_time is None
 
     def test_it_should_return_an_average_if_more_than_one_successful_build(
         self,
     ):  # noqa: E501
+        expected_result = timedelta(seconds=25)
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()
         events_stream = (
@@ -113,11 +115,12 @@ class LeadTimeCalculatorTests(unittest.TestCase):
 
         result = metric.calculate(events_stream)
 
-        self.assertEqual(timedelta(seconds=25), result)
+        assert result.lead_time == expected_result
 
     def test_it_should_only_look_at_events_from_the_same_pipeline_execution(
         self,
     ):  # noqa: E501
+        expected_result = timedelta(seconds=35)
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()
         events_stream = (
@@ -135,4 +138,4 @@ class LeadTimeCalculatorTests(unittest.TestCase):
 
         result = metric.calculate(events_stream)
 
-        self.assertEqual(timedelta(seconds=35), result)
+        assert result.lead_time == expected_result
