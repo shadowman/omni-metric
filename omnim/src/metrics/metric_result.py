@@ -70,4 +70,7 @@ class LeadtimeMetricResult(BaseModel, MetricResult):
                 "It is likely that there was not enough information to compute it"
             )
         else:
-            return f"Average Build to Deploy Leadtime = {self.lead_time.total_seconds()} s"
+            return (
+                "Average Build to Deploy Leadtime "
+                f"= {self.lead_time.total_seconds()} s"
+            )

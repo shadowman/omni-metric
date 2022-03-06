@@ -13,7 +13,9 @@ class ChangeFailureRateMetricCalculator:
         change_failure_rate = None
 
         if len(workflow_events) == 0:
-            return ChangeFailureRateMetricResult(change_failure_rate=change_failure_rate)
+            return ChangeFailureRateMetricResult(
+                change_failure_rate=change_failure_rate
+            )
 
         failure_count = 0
         deployment_count = 0

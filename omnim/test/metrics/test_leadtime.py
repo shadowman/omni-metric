@@ -71,7 +71,6 @@ class LeadTimeCalculatorTests(unittest.TestCase):
 
         assert result.lead_time is None
 
-
     def test_it_should_not_return_an_average_if_build_is_not_successful(self):
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()

@@ -94,4 +94,3 @@ class TestMeanTimeToRestoreMetricCalculator:
         result = MeanTimeToRestoreMetricCalculator().calculate(events)
 
         assert result.mean_time_to_restore is None
-

@@ -13,7 +13,9 @@ class DeploymentFrequencyMetricCalculator:
         deployment_frequency = None
 
         if len(events) == 0:
-            return DeployFrequencyMetricResult(deployment_frequency=deployment_frequency)
+            return DeployFrequencyMetricResult(
+                deployment_frequency=deployment_frequency
+            )
 
         deploys_count = 0
 
