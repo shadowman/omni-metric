@@ -22,21 +22,6 @@ We store documentation related to the project under the folder [docs/](./docs)
 
 - Change Failure Rate: the percentage of changes for the application or service which results in degraded service or subsequently required remediation (e.g., lead to service impairment or outage, require a hot fix, a rollback, a fixforward, or a patch).
 
-Detect failures by using monitoring metrics and divided by deployments.
-
-
-1 Day
-
-4 deployments (deploy feature A, fix-redeploy feature A, deploy feature B, deploy feature C)
-
-1 monitoring error
-the more succesfull deployments the smaller the CFR
-the more monitoring errors the larger the CFR + deployment intents
-
-
-CFR = 1/4
-CFR = 0
-
 # Related projects
 
 - https://github.com/thoughtworks/metrik
