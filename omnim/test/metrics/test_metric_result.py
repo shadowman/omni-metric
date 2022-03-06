@@ -28,3 +28,16 @@ class TestMetricResult:
         captured = capsys.readouterr()
         assert any("Average Deployment Frequency = 10.11 dep/day" in c for c in captured)
 
+    def test_deployment_frequency_metric_report_lack_of_information_if_internal_metrics_are_none(self, capsys):
+        # Given
+        metric_result = DeployFrequencyMetricResult(**{"deployment_frequency": None})
+
+        # When
+        metric_result.report()
+
+        # Then
+        captured = capsys.readouterr()
+        assert any(
+            "This metric returned an empty value. "
+            "It is likely that there was not enough information to compute it" in c for c in captured
+        )
