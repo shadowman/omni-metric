@@ -12,7 +12,7 @@ class TestChangeFailureRateCalculator:
 
         result = metric.calculate([])
 
-        assert result is None
+        assert result.change_failure_rate is None
 
     def test_should_return_no_failure_rate_with_no_events_of_deploy_success(
         self,
@@ -24,7 +24,7 @@ class TestChangeFailureRateCalculator:
 
         result = metric.calculate(deployment_events_stream)
 
-        assert result is None
+        assert result.change_failure_rate is None
 
     def test_should_return_failure_rate_with_of_zero(self):
         metric = ChangeFailureRateMetricCalculator()
@@ -34,7 +34,7 @@ class TestChangeFailureRateCalculator:
 
         result = metric.calculate(deployment_events_stream)
 
-        assert result == 0
+        assert result.change_failure_rate == 0
 
     def test_it_should_return_failure_rate_of_one(self):
         metric = ChangeFailureRateMetricCalculator()
@@ -49,7 +49,7 @@ class TestChangeFailureRateCalculator:
 
         result = metric.calculate(deployment_events_stream)
 
-        assert result == 1.0
+        assert result.change_failure_rate == 1.0
 
     def test_it_should_return_failure_rate_of_0_5_for_build_success_followed_by_build_failure(  # noqa: E501
         self,
@@ -68,4 +68,4 @@ class TestChangeFailureRateCalculator:
 
         result = metric.calculate(events_stream)
 
-        assert result == 0.5
+        assert result.change_failure_rate == 0.5

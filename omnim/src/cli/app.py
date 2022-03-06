@@ -72,7 +72,7 @@ def main(
     elif metrics == MetricsOptions.DEPLOYMENT_FREQUENCY:
         output.report()
     elif metrics == MetricsOptions.CHANGE_FAILURE_RATE:
-        print(f"Average Change Failure Rate = {output} failures/dep")
+        output.report()
     elif metrics == MetricsOptions.MEAN_TIME_TO_RESTORE:
         if output is None:
             print("Not enough data to calculate Mean Time To Restore")

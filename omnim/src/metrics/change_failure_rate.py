@@ -2,6 +2,7 @@
 from typing import List
 
 from omnim.src.events import EventType
+from omnim.src.metrics.metric_result import ChangeFailureRateMetricResult
 
 
 class ChangeFailureRateMetricCalculator:
@@ -9,8 +10,10 @@ class ChangeFailureRateMetricCalculator:
         pass
 
     def calculate(self, workflow_events: List):
+        change_failure_rate = None
+
         if len(workflow_events) == 0:
-            return None
+            return ChangeFailureRateMetricResult(change_failure_rate=change_failure_rate)
 
         failure_count = 0
         deployment_count = 0
@@ -22,6 +25,8 @@ class ChangeFailureRateMetricCalculator:
                 failure_count += 1
 
         if deployment_count == 0:
-            return None
+            change_failure_rate = None
+        else:
+            change_failure_rate = failure_count / deployment_count
 
-        return failure_count / deployment_count
+        return ChangeFailureRateMetricResult(change_failure_rate=change_failure_rate)

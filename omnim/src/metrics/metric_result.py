@@ -31,5 +31,15 @@ class DeployFrequencyMetricResult(BaseModel, MetricResult):
 
         return f"Average Deployment Frequency = {self.deployment_frequency} dep/day"
 
-    def report(self) -> None:
-        print(self)
+
+class ChangeFailureRateMetricResult(BaseModel, MetricResult):
+    change_failure_rate: Optional[float]
+
+    def __str__(self) -> str:
+        if self.change_failure_rate is None:
+            return (
+                "This metric returned an empty value. "
+                "It is likely that there was not enough information to compute it"
+            )
+
+        return f"Average Change Failure Rate = {self.change_failure_rate} failures/dep"
