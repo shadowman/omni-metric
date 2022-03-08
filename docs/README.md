@@ -20,7 +20,7 @@ automatically.
 
 # The C4 model diagram
 
-https://miro.com/app/board/uXjVOdNGlQs=/
+[https://miro.com/app/board/uXjVOdNGlQs=/](https://miro.com/app/board/uXjVOdNGlQs=/)
 
 ## Available sources
 
