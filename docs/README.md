@@ -16,7 +16,11 @@ in a modern and effective way.
 - Change Failure Rate: the percentage of changes for the application or service which results in degraded service or subsequently required remediation (e.g., lead to service impairment or outage, require a hot fix, a rollback, a fixforward, or a patch).
 
 Omni metrics on one hand, helps developers to keep track of those metrics
-automatically. 
+automatically.
+
+# The C4 model diagram
+
+https://miro.com/app/board/uXjVOdNGlQs=/
 
 ## Available sources
 
@@ -44,15 +48,16 @@ omni-metric.
 
 ```json
 {
-    "user": "shadowman",
-    "repo": "omni-metric",
-    "deployment_action_name": "Python CI",
-    "token": ""
+  "user": "shadowman",
+  "repo": "omni-metric",
+  "deployment_action_name": "Python CI",
+  "token": ""
 }
 ```
 
 The `token` can be empty, and it will be required only if the number of requests
-exceeds the allowed number, it also depends on the source used.
+exceeds the allowed number, it depends on the source used and it is usually
+used for fetch data from **private** sources.
 
 ## Using omni metrics
 
@@ -75,4 +80,7 @@ Successfully fetched workflow execution from github
 
 ### Troubleshooting
 
-TODO
+This section depends on the kind of provider you might use, in a nutshell the
+errors are related usually t the amount of requests made to download the data
+from the repository, usually providers blocks those kind of requests for a
+specific amount of time.
