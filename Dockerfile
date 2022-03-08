@@ -1,25 +1,20 @@
-FROM python:3.9-slim as base
-
-# Setup env
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONFAULTHANDLER 1
-
+FROM python:3.9
 
 RUN pip install pipenv
-RUN apt-get update && apt-get install -y --no-install-recommends gcc
 
-COPY Pipfile .
-COPY Pipfile.lock .
-RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
+ENV PROJECT_DIR /usr/local/src/webapp
 
+WORKDIR ${PROJECT_DIR}
 
-RUN useradd --create-home appuser
-WORKDIR /home/appuser
-USER appuser
+COPY Pipfile Pipfile.lock ${PROJECT_DIR}/
 
-# Install application into container
-COPY . .
+COPY . ${PROJECT_DIR}/
+
+RUN pipenv install --system --deploy
+
+RUN echo 'PYTHONPATH=${PYTHONPATH}:${PWD}' >> .env
+RUN pipenv install
+RUN pipenv install --dev
+RUN pipenv run pytest
 
 CMD ["pipenv", "run", "python", "omnim/src/cli/app.py"]
