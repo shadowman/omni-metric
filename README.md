@@ -1,12 +1,44 @@
+[![Python CI](https://github.com/shadowman/omni-metric/actions/workflows/delivery.yml/badge.svg)](https://github.com/shadowman/omni-metric/actions/workflows/delivery.yml)
+
 # omni-metric
 
 The one tool to monitor the 4 key metrics from the accelerate book for your environments
 
-# Diagram
+# Installation for local development
 
-https://miro.com/app/board/uXjVOdNGlQs=/
+First of all, make sure that you have **python** installed and **pip** and
+clone the repository, with the cloned repo, follow the steps:
 
-[![Python CI](https://github.com/shadowman/omni-metric/actions/workflows/delivery.yml/badge.svg)](https://github.com/shadowman/omni-metric/actions/workflows/delivery.yml)
+```
+cd omni-metric/
+pip install
+```
+
+Last step is to double-check if it worked simply running the application
+with python:
+
+```
+python omnim/src/cli/app.py
+```
+
+The output should be something like the following:
+
+```
+Usage: app.py [OPTIONS]
+
+Options:
+  --config-file PATH
+  --metrics [lt|df|cfr|mttr]
+  --input-file PATH
+  --source TEXT
+  --fetch TEXT
+  --install-completion [bash|zsh|fish|powershell|pwsh]
+                                  Install completion for the specified shell.
+  --show-completion [bash|zsh|fish|powershell|pwsh]
+                                  Show completion for the specified shell, to
+                                  copy it or customize the installation.
+  --help                          Show this message and exit.
+```
 
 # Docs
 
