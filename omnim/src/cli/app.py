@@ -45,15 +45,12 @@ def main(
 
     availableMetrics = {
         MetricsOptions.LEAD_TIME: LeadtimeMetricCalculator,
-        MetricsOptions.DEPLOYMENT_FREQUENCY: DeploymentFrequencyMetricCalculator
+        MetricsOptions.DEPLOYMENT_FREQUENCY: DeploymentFrequencyMetricCalculator,
+        MetricsOptions.CHANGE_FAILURE_RATE: ChangeFailureRateMetricCalculator,
+        MetricsOptions.MEAN_TIME_TO_RESTORE: MeanTimeToRestoreMetricCalculator,
     }
 
     calculator = availableMetrics.get(metrics, lambda: None)()
-
-    if metrics == MetricsOptions.CHANGE_FAILURE_RATE:
-        calculator = ChangeFailureRateMetricCalculator()
-    elif metrics == MetricsOptions.MEAN_TIME_TO_RESTORE:
-        calculator = MeanTimeToRestoreMetricCalculator()
 
     events_loader = CsvEventsLoader(input_file)
 
