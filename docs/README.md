@@ -66,7 +66,7 @@ for calculating the metrics. The first step is to run the following
 command (that used the previous configuration file):
 
 ```
-pipenv run python omnim/src/cli/app.py --source GitHubActionsForOmnimetric --fetch "" --config-file ./config.jso
+pipenv run python omnim/src/cli/app.py --source GitHubActionsForOmnimetric --fetch "" --config-file ./config.json
 ```
 
 Note: this is using the Github source, see the section [Available sources](#available-sources).
