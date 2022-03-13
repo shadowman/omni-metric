@@ -45,13 +45,12 @@ def main(
 
     availableMetrics = {
         MetricsOptions.LEAD_TIME: LeadtimeMetricCalculator,
+        MetricsOptions.DEPLOYMENT_FREQUENCY: DeploymentFrequencyMetricCalculator
     }
 
     calculator = availableMetrics.get(metrics, lambda: None)()
 
-    if metrics == MetricsOptions.DEPLOYMENT_FREQUENCY:
-        calculator = DeploymentFrequencyMetricCalculator()
-    elif metrics == MetricsOptions.CHANGE_FAILURE_RATE:
+    if metrics == MetricsOptions.CHANGE_FAILURE_RATE:
         calculator = ChangeFailureRateMetricCalculator()
     elif metrics == MetricsOptions.MEAN_TIME_TO_RESTORE:
         calculator = MeanTimeToRestoreMetricCalculator()
