@@ -6,20 +6,26 @@ The one tool to monitor the 4 key metrics from the accelerate book for your envi
 
 # Installation for local development
 
-First of all, make sure that you have **python** installed and **pip** and
+First, make sure that you have **python** installed and **pip** and
 clone the repository, with the cloned repo, follow the steps:
 
 ```
 cd omni-metric/
 pipenv install --dev
 ```
+Second, install the pre-commit integrations (flake8, mypy, black, isort and tests) by doing:
+```
+pipenv run pre-commit install
+```
+This will allow that anytime you run a `git commit` the quality tools will run as part of the git hook.
+Ensuring that we have a common agreement on quality uploaded to the repo.
 
 Last step is to double-check if it worked simply running the application
 with python:
 
 ```
 cp .env.example .env
-``
+```
 
 ```
 pipenv run python omnim/src/cli/app.py
