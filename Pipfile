@@ -19,6 +19,8 @@ pytest-watcher = "*"
 black = "*"
 isort = "*"
 mypy = "*"
+pre-commit = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.9"

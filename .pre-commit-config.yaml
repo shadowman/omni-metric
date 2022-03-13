@@ -1,0 +1,29 @@
+repos:
+  - repo: https://github.com/PyCQA/flake8
+    rev: 3.9.2
+    hooks:
+      - id: flake8
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.940
+    hooks:
+      - id: mypy
+  - repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+  - repo: https://github.com/pycqa/isort
+    rev: 5.5.2
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+  - repo: local
+    hooks:
+      - id: pytest-cov
+        name: pytest coverage
+        description: 'Running the efficient unit tests with coverage'
+        stages: [commit]
+        language: system
+        entry: pipenv run pytest --cov ./omnim/src --cov-fail-under=90
+        types: [python]
+        pass_filenames: false
+        always_run: true
