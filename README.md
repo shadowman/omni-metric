@@ -11,14 +11,18 @@ clone the repository, with the cloned repo, follow the steps:
 
 ```
 cd omni-metric/
-pip install
+pipenv install --dev
 ```
 
 Last step is to double-check if it worked simply running the application
 with python:
 
 ```
-python omnim/src/cli/app.py
+cp .env.example .env
+``
+
+```
+pipenv run python omnim/src/cli/app.py
 ```
 
 The output should be something like the following:
