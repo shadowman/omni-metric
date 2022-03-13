@@ -2,7 +2,7 @@ FROM python:3.9
 
 RUN pip install pipenv
 
-ENV PROJECT_DIR /usr/local/src/webapp
+ENV PROJECT_DIR /app
 
 WORKDIR ${PROJECT_DIR}
 
