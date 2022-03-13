@@ -43,10 +43,13 @@ def main(
         config = Config(config_file)
         print(f"Using '{config_file}' as config file")
 
-    calculator = None
-    if metrics == MetricsOptions.LEAD_TIME:
-        calculator = LeadtimeMetricCalculator()
-    elif metrics == MetricsOptions.DEPLOYMENT_FREQUENCY:
+    availableMetrics = {
+        MetricsOptions.LEAD_TIME: LeadtimeMetricCalculator,
+    }
+
+    calculator = availableMetrics.get(metrics, lambda: None)()
+
+    if metrics == MetricsOptions.DEPLOYMENT_FREQUENCY:
         calculator = DeploymentFrequencyMetricCalculator()
     elif metrics == MetricsOptions.CHANGE_FAILURE_RATE:
         calculator = ChangeFailureRateMetricCalculator()
