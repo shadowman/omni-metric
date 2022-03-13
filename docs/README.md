@@ -41,8 +41,8 @@ which can be seen [here](./sources.md).
 
 By default omni comes without any data to operate on (besides the test data
 used for development). In a "common" setting, it would be likely that
-you would want to use your own data, for that, the first step
-is to configure the source through a JSON file. The following file
+you would want to use your own data, for that, **the first step
+is to configure the source through a JSON file**. The following file
 is an example of a configuration file that fetches data from the repository
 omni-metric.
 
@@ -66,7 +66,7 @@ for calculating the metrics. The first step is to run the following
 command (that used the previous configuration file):
 
 ```
-pipenv run python omnim/src/cli/app.py --source GitHubActionsForOmnimetric --fetch "" --config-file ./config.jso
+pipenv run python omnim/src/cli/app.py --source GitHubActionsForOmnimetric --fetch "" --config-file ./config.json
 ```
 
 Note: this is using the Github source, see the section [Available sources](#available-sources).
@@ -76,6 +76,11 @@ One the command is run, the following message will be displayed:
 ```
 Using 'config.json' as config file
 Successfully fetched workflow execution from github
+```
+
+## Run the deployment frequency
+```bash
+pipenv run python omnim/src/cli/app.py --metrics df --input-file ./data/result.csv
 ```
 
 ### Troubleshooting
