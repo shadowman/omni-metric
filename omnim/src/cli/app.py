@@ -33,9 +33,9 @@ def main(
     events_loader = CsvEventsLoader(input_file)
 
     if source is not None:
-        source = GithubActionsSource(config)
-        asyncio.run(source.listen_source())
-        events_loader = CsvEventsLoader(source.target)
+        git_source = GithubActionsSource(config)
+        asyncio.run(git_source.listen_source())
+        events_loader = CsvEventsLoader(git_source.target)
         print("Successfully fetched workflow execution from github")
 
     try:

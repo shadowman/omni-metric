@@ -8,7 +8,7 @@ class MeanTimeToRestoreMetricCalculator:
     def __init__(self):
         pass
 
-    def calculate(self, workflow_events: List):
+    def calculate(self, workflow_events: List) -> MeanTimeToRestoreMetricResult:
         mean_time_to_restore = None
 
         times_to_restore = []

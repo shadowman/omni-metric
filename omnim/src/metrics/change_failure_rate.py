@@ -9,7 +9,7 @@ class ChangeFailureRateMetricCalculator:
     def __init__(self):
         pass
 
-    def calculate(self, workflow_events: List):
+    def calculate(self, workflow_events: List) -> ChangeFailureRateMetricResult:
         change_failure_rate = None
 
         if len(workflow_events) == 0:

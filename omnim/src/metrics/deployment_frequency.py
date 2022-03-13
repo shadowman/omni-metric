@@ -9,7 +9,7 @@ class DeploymentFrequencyMetricCalculator:
     def __init__(self):
         pass
 
-    def calculate(self, events: List):
+    def calculate(self, events: List) -> DeployFrequencyMetricResult:
         deployment_frequency = None
 
         if len(events) == 0:
