@@ -30,15 +30,15 @@ class TestMeanTimeToRestoreMetricCalculator:
     ):  # noqa: E501
         today = datetime.datetime.today()
         events = [
-            WorkflowEvent(datetime=today, data="deploy_success"),
+            WorkflowEvent(timestamp=today, data="deploy_success"),
             WorkflowEvent(
-                datetime=today + datetime.timedelta(minutes=1),
-                type=EventType.SERVICE_FAILING,
+                timestamp=today + datetime.timedelta(minutes=1),
+                event_type=EventType.SERVICE_FAILING,
                 data="There has been an error",
             ),
             WorkflowEvent(
-                datetime=today + datetime.timedelta(minutes=2),
-                type=EventType.SERVICE_RESTORED,
+                timestamp=today + datetime.timedelta(minutes=2),
+                event_type=EventType.SERVICE_RESTORED,
                 data="Service is restored",
             ),
         ]
@@ -52,20 +52,20 @@ class TestMeanTimeToRestoreMetricCalculator:
     ):  # noqa: E501
         today = datetime.datetime.today()
         events = [
-            WorkflowEvent(datetime=today, data="deploy_success"),
+            WorkflowEvent(timestamp=today, data="deploy_success"),
             WorkflowEvent(
-                datetime=today + datetime.timedelta(minutes=1),
-                type=EventType.SERVICE_FAILING,
+                timestamp=today + datetime.timedelta(minutes=1),
+                event_type=EventType.SERVICE_FAILING,
                 data="There has been an error",
             ),
             WorkflowEvent(
-                datetime=today + datetime.timedelta(minutes=2),
-                type=EventType.SERVICE_FAILING,
+                timestamp=today + datetime.timedelta(minutes=2),
+                event_type=EventType.SERVICE_FAILING,
                 data="Service is restored",
             ),
             WorkflowEvent(
-                datetime=today + datetime.timedelta(minutes=3),
-                type=EventType.SERVICE_RESTORED,
+                timestamp=today + datetime.timedelta(minutes=3),
+                event_type=EventType.SERVICE_RESTORED,
                 data="Service is restored",
             ),
         ]
@@ -80,13 +80,13 @@ class TestMeanTimeToRestoreMetricCalculator:
         today = datetime.datetime.today()
         events = [
             WorkflowEvent(
-                datetime=today + datetime.timedelta(minutes=1),
-                type=EventType.SERVICE_RESTORED,
+                timestamp=today + datetime.timedelta(minutes=1),
+                event_type=EventType.SERVICE_RESTORED,
                 data="There has been an error",
             ),
             WorkflowEvent(
-                datetime=today + datetime.timedelta(minutes=2),
-                type=EventType.SERVICE_FAILING,
+                timestamp=today + datetime.timedelta(minutes=2),
+                event_type=EventType.SERVICE_FAILING,
                 data="Service is restored",
             ),
         ]

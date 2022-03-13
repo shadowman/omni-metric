@@ -43,7 +43,7 @@ class TestChangeFailureRateCalculator:
         deployment_events_stream = (
             WorkflowEvent(today, "deploy_success"),
             WorkflowEvent(
-                datetime=today, type=EventType.ERROR, data="This is a dummy error"
+                timestamp=today, event_type=EventType.ERROR, data="This is a dummy error"
             ),
         )
 
@@ -62,7 +62,7 @@ class TestChangeFailureRateCalculator:
             WorkflowEvent(today, "deploy_failed"),
             WorkflowEvent(today, "deploy_success"),
             WorkflowEvent(
-                datetime=today, type=EventType.ERROR, data="This is a dummy error"
+                timestamp=today, event_type=EventType.ERROR, data="This is a dummy error"
             ),
         )
 

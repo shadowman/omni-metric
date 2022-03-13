@@ -2,32 +2,30 @@ import datetime
 
 from omnim.src.events import EventType
 from omnim.src.metrics.metric_result import LeadtimeMetricResult
+from typing import Dict, Optional
 
 
 class LeadtimeMetricCalculator:
-    def calculate(self, events=()):
+    def calculate(self, events=()) -> LeadtimeMetricResult:
         average_lead_time = None
 
         total_time = datetime.timedelta()
 
         deploys_count = 0
-        pipelines = {}
+        pipelines: Dict[str, Dict[str, Optional[datetime.datetime]]] = {}
 
         for event in events:
             pipeline_execution = pipelines.setdefault(
-                event.data, {"build_time": None, "deploy_time": None}
+                event.data, {"build_time": None}
             )
 
             if event.type == EventType.BUILD_SUCCESS:
                 pipeline_execution["build_time"] = event.datetime
             if (
                 event.type == EventType.DEPLOY_SUCCESS
-                and pipeline_execution["build_time"] is not None
+                and pipeline_execution.get("build_time") is not None
             ):
-                pipeline_execution["deploy_time"] = event.datetime
-                total_time += (
-                    pipeline_execution["deploy_time"] - pipeline_execution["build_time"]
-                )
+                total_time += (event.datetime - pipeline_execution.get("build_time"))
                 deploys_count += 1
 
         if deploys_count > 0:
@@ -37,7 +35,12 @@ class LeadtimeMetricCalculator:
 
 
 class WorkflowEvent:
-    def __init__(self, datetime=datetime.datetime.today(), type="null", data=""):
-        self.datetime = datetime
-        self.type = EventType(type)
+    def __init__(
+        self,
+        timestamp=datetime.datetime.today(),
+        event_type="null",
+        data="",
+    ):
+        self.datetime = timestamp
+        self.type = EventType(event_type)
         self.data = data
