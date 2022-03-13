@@ -1,30 +1,16 @@
 import asyncio
-from enum import Enum
 from pathlib import Path
 from typing import Optional
 
 import typer
 
+from omnim.src.application.metrics import calculate_metrics_for_events
 from omnim.src.configuration.config import Config
 from omnim.src.loaders.csvloader import CsvEventsLoader
-from omnim.src.metrics.change_failure_rate import \
-    ChangeFailureRateMetricCalculator
-from omnim.src.metrics.deployment_frequency import \
-    DeploymentFrequencyMetricCalculator
-from omnim.src.metrics.leadtime import LeadtimeMetricCalculator
-from omnim.src.metrics.mean_time_to_restore import \
-    MeanTimeToRestoreMetricCalculator
-from omnim.src.metrics.metric_result import MetricResult
 from omnim.src.sources.github_actions import GithubActionsSource
+from omnim.src.cli.metric import MetricsOptions
 
 app = typer.Typer()
-
-
-class MetricsOptions(Enum):
-    LEAD_TIME = "lt"
-    DEPLOYMENT_FREQUENCY = "df"
-    CHANGE_FAILURE_RATE = "cfr"
-    MEAN_TIME_TO_RESTORE = "mttr"
 
 
 @app.command(
@@ -58,17 +44,7 @@ def main(
         raise e
 
     if metrics is not None:
-        available_metrics = {
-            MetricsOptions.LEAD_TIME: LeadtimeMetricCalculator,
-            MetricsOptions.DEPLOYMENT_FREQUENCY: DeploymentFrequencyMetricCalculator,
-            MetricsOptions.CHANGE_FAILURE_RATE: ChangeFailureRateMetricCalculator,
-            MetricsOptions.MEAN_TIME_TO_RESTORE: MeanTimeToRestoreMetricCalculator,
-        }
-
-        calculator = available_metrics.get(metrics)()
-
-        output: MetricResult = calculator.calculate(events)
-        output.report()
+        calculate_metrics_for_events(metrics, events)
 
 
 if __name__ == "__main__":

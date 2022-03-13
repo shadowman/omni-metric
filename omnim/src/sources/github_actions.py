@@ -74,7 +74,9 @@ class GithubActionsSource(PipelineSource):
                     created_at,
                     self.github_date_format,
                 )
-                timestamp = int((created_at - ZERO_TIME) / datetime.timedelta(seconds=1))
+                timestamp = int(
+                    (created_at - ZERO_TIME) / datetime.timedelta(seconds=1)
+                )
 
                 await self._register_new_event(
                     {
