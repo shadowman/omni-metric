@@ -3,12 +3,13 @@ import datetime
 from os.path import exists
 
 from omnim.src.metrics.leadtime import WorkflowEvent
+from typing import List
 
 
 class CsvEventsLoader:
     def __init__(self, file=None) -> None:
         self.file_path = file
-        self._events = []
+        self._events: List[WorkflowEvent] = []
 
     def load(self):
         if not exists(self.file_path):
@@ -27,7 +28,7 @@ class CsvEventsLoader:
 
                 self._events.append(event)
 
-    def get_all_events(self):
+    def get_all_events(self) -> List[WorkflowEvent]:
         return self._events
 
 

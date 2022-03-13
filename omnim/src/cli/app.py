@@ -1,12 +1,13 @@
 import asyncio
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List
 
 import typer
 
 from omnim.src.application.metrics import calculate_metrics_for_events
 from omnim.src.configuration.config import Config
 from omnim.src.loaders.csvloader import CsvEventsLoader
+from omnim.src.metrics.leadtime import WorkflowEvent
 from omnim.src.sources.github_actions import GithubActionsSource
 from omnim.src.cli.metric import MetricsOptions
 
@@ -39,7 +40,7 @@ def main(
 
     try:
         events_loader.load()
-        events = events_loader.get_all_events()
+        events: List[WorkflowEvent] = events_loader.get_all_events()
     except Exception as e:
         raise e
 
