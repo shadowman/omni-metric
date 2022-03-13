@@ -43,15 +43,6 @@ def main(
         config = Config(config_file)
         print(f"Using '{config_file}' as config file")
 
-    availableMetrics = {
-        MetricsOptions.LEAD_TIME: LeadtimeMetricCalculator,
-        MetricsOptions.DEPLOYMENT_FREQUENCY: DeploymentFrequencyMetricCalculator,
-        MetricsOptions.CHANGE_FAILURE_RATE: ChangeFailureRateMetricCalculator,
-        MetricsOptions.MEAN_TIME_TO_RESTORE: MeanTimeToRestoreMetricCalculator,
-    }
-
-    calculator = availableMetrics.get(metrics, lambda: None)()
-
     events_loader = CsvEventsLoader(input_file)
 
     if source is not None:
@@ -66,7 +57,16 @@ def main(
     except Exception as e:
         raise e
 
-    if calculator is not None:
+    if metrics is not None:
+        available_metrics = {
+            MetricsOptions.LEAD_TIME: LeadtimeMetricCalculator,
+            MetricsOptions.DEPLOYMENT_FREQUENCY: DeploymentFrequencyMetricCalculator,
+            MetricsOptions.CHANGE_FAILURE_RATE: ChangeFailureRateMetricCalculator,
+            MetricsOptions.MEAN_TIME_TO_RESTORE: MeanTimeToRestoreMetricCalculator,
+        }
+
+        calculator = available_metrics.get(metrics)()
+
         output: MetricResult = calculator.calculate(events)
         output.report()
 
