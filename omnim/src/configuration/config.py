@@ -8,6 +8,7 @@ class Config:
     repo: str = "oop_rust"
     token: str = "fake_token"
     deployment_action_name: str = "Greetings"
+    storage_type: str = "csv"
 
     def __init__(self, config_file: Optional[Path] = None):
         if config_file is not None:
@@ -17,3 +18,4 @@ class Config:
             self.user = config.get("user")
             self.repo = config.get("repo")
             self.deployment_action_name = config.get("deployment_action_name")
+            self.storage_type = config.get("storage_type", self.storage_type)

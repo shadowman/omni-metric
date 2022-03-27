@@ -85,6 +85,26 @@ class TestOmniMetricTyperMetricsOutput:
 
         assert master_output in result.stdout
 
+    def test_load_json_configuration_from_file_should_show_storage_type(self):
+        config_file_path = "data/configuration.json"
+        data_path = "./data/mttr_data_stream.csv"
+        expected_storage = "csv"
+        master_output = f"Configuration set to use: {expected_storage} storage"
+
+        result = self.runner.invoke(
+            app,
+            [
+                "--config-file",
+                config_file_path,
+                "--metrics",
+                "mttr",
+                "--input-file",
+                data_path,
+            ],
+        )
+
+        assert master_output in result.stdout
+
     def test_fetch_all_executions_from_github(self):
         config_file_path = "data/configuration.json"
         master_output = "Successfully fetched workflow execution from github\n"

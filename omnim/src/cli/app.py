@@ -1,22 +1,20 @@
 import asyncio
 from pathlib import Path
-from typing import Optional, List
+from typing import List, Optional
 
 import typer
 
 from omnim.src.application.metrics import calculate_metrics_for_events
+from omnim.src.cli.metric import MetricsOptions
 from omnim.src.configuration.config import Config
 from omnim.src.loaders.csvloader import CsvEventsLoader
 from omnim.src.metrics.leadtime import WorkflowEvent
 from omnim.src.sources.github_actions import GithubActionsSource
-from omnim.src.cli.metric import MetricsOptions
 
 app = typer.Typer()
 
 
-@app.command(
-    no_args_is_help=True
-)
+@app.command(no_args_is_help=True)
 def main(
     config_file: Optional[Path] = typer.Option(None),
     metrics: Optional[MetricsOptions] = typer.Option(None, help=""),
@@ -27,8 +25,9 @@ def main(
 
     config = Config()
     if config_file is not None:
-        config = Config(config_file)
         print(f"Using '{config_file}' as config file")
+        config = Config(config_file)
+        print(f"Configuration set to use: {config.storage_type} storage")
 
     events_loader = CsvEventsLoader(input_file)
 
