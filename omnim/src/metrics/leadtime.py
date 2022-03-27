@@ -1,8 +1,8 @@
 import datetime
+from typing import Dict, Optional
 
 from omnim.src.events import EventType
 from omnim.src.metrics.metric_result import LeadtimeMetricResult
-from typing import Dict, Optional
 
 
 class LeadtimeMetricCalculator:
@@ -15,9 +15,7 @@ class LeadtimeMetricCalculator:
         pipelines: Dict[str, Dict[str, Optional[datetime.datetime]]] = {}
 
         for event in events:
-            pipeline_execution = pipelines.setdefault(
-                event.data, {"build_time": None}
-            )
+            pipeline_execution = pipelines.setdefault(event.data, {"build_time": None})
 
             if event.type == EventType.BUILD_SUCCESS:
                 pipeline_execution["build_time"] = event.datetime
@@ -25,7 +23,7 @@ class LeadtimeMetricCalculator:
                 event.type == EventType.DEPLOY_SUCCESS
                 and pipeline_execution.get("build_time") is not None
             ):
-                total_time += (event.datetime - pipeline_execution.get("build_time"))
+                total_time += event.datetime - pipeline_execution.get("build_time")
                 deploys_count += 1
 
         if deploys_count > 0:
