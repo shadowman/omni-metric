@@ -40,7 +40,7 @@ class CsvEventsLoaderTests(unittest.TestCase):
         events = self.test_csv_loader.get_all_events()
 
         first_event = events[0]
-        self.assertEqual(first_event.type, EventType.BUILD_SUCCESS)
+        self.assertEqual(first_event.event_type, EventType.BUILD_SUCCESS)
 
     def test_it_should_load_each_event_data_correctly(self):
         self.test_csv_loader.load()

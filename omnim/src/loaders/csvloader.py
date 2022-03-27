@@ -1,9 +1,10 @@
 import csv
 import datetime
 from os.path import exists
-
-from omnim.src.metrics.leadtime import WorkflowEvent
 from typing import List
+
+from omnim.src.events import EventType
+from omnim.src.metrics.leadtime import WorkflowEvent
 
 
 class CsvEventsLoader:
@@ -24,7 +25,11 @@ class CsvEventsLoader:
                 event_name = row["event_name"]
                 event_data = row["data"]
 
-                event = WorkflowEvent(event_datetime, event_name, event_data)
+                event = WorkflowEvent(
+                    datetime=event_datetime,
+                    event_type=EventType(event_name),
+                    data=event_data,
+                )
 
                 self._events.append(event)
 

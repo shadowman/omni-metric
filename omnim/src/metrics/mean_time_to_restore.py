@@ -15,10 +15,13 @@ class MeanTimeToRestoreMetricCalculator:
         last_error_timestamp = None
 
         for event in workflow_events:
-            if event.type == EventType.SERVICE_FAILING and last_error_timestamp is None:
+            if (
+                event.event_type == EventType.SERVICE_FAILING
+                and last_error_timestamp is None
+            ):
                 last_error_timestamp = event.datetime
             if (
-                event.type == EventType.SERVICE_RESTORED
+                event.event_type == EventType.SERVICE_RESTORED
                 and last_error_timestamp is not None
             ):
                 times_to_restore.append(

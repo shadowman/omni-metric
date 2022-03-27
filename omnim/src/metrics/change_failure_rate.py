@@ -21,9 +21,9 @@ class ChangeFailureRateMetricCalculator:
         deployment_count = 0
 
         for event in workflow_events:
-            if event.type == EventType.DEPLOY_SUCCESS:
+            if event.event_type == EventType.DEPLOY_SUCCESS:
                 deployment_count += 1
-            if event.type == EventType.ERROR:
+            if event.event_type == EventType.ERROR:
                 failure_count += 1
 
         if deployment_count == 0:

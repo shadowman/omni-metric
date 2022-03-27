@@ -20,7 +20,7 @@ class DeploymentFrequencyMetricCalculator:
         deploys_count = 0
 
         for event in events:
-            if event.type == EventType.DEPLOY_SUCCESS:
+            if event.event_type == EventType.DEPLOY_SUCCESS:
                 deploys_count += 1
         if deploys_count > 0:
             event_start_date = events[0].datetime

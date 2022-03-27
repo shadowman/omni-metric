@@ -1,8 +1,7 @@
 import datetime
 
 from omnim.src.events import EventType
-from omnim.src.metrics.change_failure_rate import \
-    ChangeFailureRateMetricCalculator
+from omnim.src.metrics.change_failure_rate import ChangeFailureRateMetricCalculator
 from omnim.src.metrics.leadtime import WorkflowEvent
 
 
@@ -41,9 +40,9 @@ class TestChangeFailureRateCalculator:
         today = datetime.datetime.today()
 
         deployment_events_stream = (
-            WorkflowEvent(today, "deploy_success"),
+            WorkflowEvent(today, EventType.DEPLOY_SUCCESS),
             WorkflowEvent(
-                timestamp=today, event_type=EventType.ERROR, data="This is a dummy error"
+                datetime=today, event_type=EventType.ERROR, data="This is a dummy error"
             ),
         )
 
@@ -58,11 +57,11 @@ class TestChangeFailureRateCalculator:
         today = datetime.datetime.today()
 
         events_stream = (
-            WorkflowEvent(today, "deploy_success"),
-            WorkflowEvent(today, "deploy_failed"),
-            WorkflowEvent(today, "deploy_success"),
+            WorkflowEvent(today, EventType.DEPLOY_SUCCESS),
+            WorkflowEvent(today, EventType.DEPLOY_FAILED),
+            WorkflowEvent(today, EventType.DEPLOY_SUCCESS),
             WorkflowEvent(
-                timestamp=today, event_type=EventType.ERROR, data="This is a dummy error"
+                datetime=today, event_type=EventType.ERROR, data="This is a dummy error"
             ),
         )
 

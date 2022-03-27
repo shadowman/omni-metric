@@ -1,6 +1,7 @@
 import datetime
 import os
 
+from omnim.src.events import EventType
 from omnim.src.metrics.leadtime import WorkflowEvent
 from omnim.src.repositories.csv_repository import CsvRepository
 
@@ -12,7 +13,7 @@ class TestCsvRepository:
         today = datetime.datetime.today()
         yesterday = today - datetime.timedelta(days=2)
 
-        events_stream = WorkflowEvent(yesterday, "build_failed")
+        events_stream = WorkflowEvent(yesterday, EventType.BUILD_FAILED)
 
         target_file = "./data/stored_from_csv.csv"
 
@@ -26,7 +27,7 @@ class TestCsvRepository:
     ):
 
         expected_header = ",".join(["datetime", "event_name", "data"]) + "\n"
-        events_stream = WorkflowEvent(datetime.datetime.today(), "build_failed")
+        events_stream = WorkflowEvent(datetime.datetime.today(), EventType.BUILD_FAILED)
 
         target_file = "./data/stored_from_csv.csv"
 

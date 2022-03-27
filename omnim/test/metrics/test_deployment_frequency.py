@@ -1,7 +1,7 @@
 import datetime
 
-from omnim.src.metrics.deployment_frequency import \
-    DeploymentFrequencyMetricCalculator
+from omnim.src.events import EventType
+from omnim.src.metrics.deployment_frequency import DeploymentFrequencyMetricCalculator
 from omnim.src.metrics.leadtime import WorkflowEvent
 
 
@@ -21,7 +21,7 @@ class TestDeploymentFrequencyCalculator:
         metric = DeploymentFrequencyMetricCalculator()
         today = datetime.datetime.today()
 
-        events_stream = (WorkflowEvent(today, "build_success"),)
+        events_stream = (WorkflowEvent(today, EventType.BUILD_SUCCESS),)
 
         result = metric.calculate(events_stream)
 
@@ -33,8 +33,8 @@ class TestDeploymentFrequencyCalculator:
         today = datetime.datetime.today()
 
         events_stream = (
-            WorkflowEvent(today, "build_success"),
-            WorkflowEvent(today, "deploy_success"),
+            WorkflowEvent(today, EventType.BUILD_SUCCESS),
+            WorkflowEvent(today, EventType.DEPLOY_SUCCESS),
         )
 
         result = metric.calculate(events_stream)
@@ -48,8 +48,8 @@ class TestDeploymentFrequencyCalculator:
         yesterday = today - datetime.timedelta(days=2)
 
         events_stream = (
-            WorkflowEvent(yesterday, "build_failed"),
-            WorkflowEvent(today, "deploy_success"),
+            WorkflowEvent(yesterday, EventType.BUILD_FAILED),
+            WorkflowEvent(today, EventType.DEPLOY_SUCCESS),
         )
 
         result = metric.calculate(events_stream)
@@ -66,10 +66,10 @@ class TestDeploymentFrequencyCalculator:
         day_before = today - datetime.timedelta(days=3)
 
         events_stream = (
-            WorkflowEvent(day_before, "build_failed"),
-            WorkflowEvent(yesterday, "build_failed"),
-            WorkflowEvent(today, "deploy_success"),
-            WorkflowEvent(today, "deploy_success"),
+            WorkflowEvent(day_before, EventType.BUILD_FAILED),
+            WorkflowEvent(yesterday, EventType.BUILD_FAILED),
+            WorkflowEvent(today, EventType.DEPLOY_SUCCESS),
+            WorkflowEvent(today, EventType.DEPLOY_SUCCESS),
         )
 
         result = metric.calculate(events_stream)

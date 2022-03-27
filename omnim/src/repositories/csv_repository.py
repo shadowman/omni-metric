@@ -26,5 +26,5 @@ class CsvRepository:
                 quoting=csv.QUOTE_MINIMAL,
             )
             csv_row_writer.writerow(
-                [events_stream.datetime, events_stream.type, events_stream.data]
+                [events_stream.datetime, events_stream.event_type, events_stream.data]
             )

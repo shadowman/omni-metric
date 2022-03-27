@@ -2,6 +2,7 @@ import datetime
 import unittest
 from datetime import timedelta
 
+from omnim.src.events import EventType
 from omnim.src.metrics.leadtime import LeadtimeMetricCalculator, WorkflowEvent
 
 
@@ -20,8 +21,10 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()
         events_stream = (
-            WorkflowEvent(today, "build_success"),
-            WorkflowEvent(today + lead_time, "deploy_success"),
+            WorkflowEvent(datetime=today, event_type=EventType.BUILD_SUCCESS),
+            WorkflowEvent(
+                datetime=today + lead_time, event_type=EventType.DEPLOY_SUCCESS
+            ),
         )
 
         result = metric.calculate(events_stream)
@@ -35,9 +38,9 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()
         events_stream = (
-            WorkflowEvent(today, "build_success"),
-            WorkflowEvent(today + timedelta(seconds=10), "test_success"),
-            WorkflowEvent(today + timedelta(seconds=20), "deploy_success"),
+            WorkflowEvent(today, EventType.BUILD_SUCCESS),
+            WorkflowEvent(today + timedelta(seconds=10), EventType.TEST_SUCCESS),
+            WorkflowEvent(today + timedelta(seconds=20), EventType.DEPLOY_SUCCESS),
         )
 
         result = metric.calculate(events_stream)
@@ -50,8 +53,8 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()
         events_stream = (
-            WorkflowEvent(today, "build_success"),
-            WorkflowEvent(today + timedelta(seconds=10), "test_failed"),
+            WorkflowEvent(today, EventType.BUILD_SUCCESS),
+            WorkflowEvent(today + timedelta(seconds=10), EventType.TEST_FAILED),
         )
 
         result = metric.calculate(events_stream)
@@ -62,9 +65,9 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()
         events_stream = (
-            WorkflowEvent(today, "build_success"),
-            WorkflowEvent(today + timedelta(seconds=10), "test_success"),
-            WorkflowEvent(today + timedelta(seconds=20), "deploy_failed"),
+            WorkflowEvent(today, EventType.BUILD_SUCCESS),
+            WorkflowEvent(today + timedelta(seconds=10), EventType.TEST_SUCCESS),
+            WorkflowEvent(today + timedelta(seconds=20), EventType.DEPLOY_FAILED),
         )
 
         result = metric.calculate(events_stream)
@@ -75,9 +78,9 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()
         events_stream = (
-            WorkflowEvent(today, "build_failed"),
-            WorkflowEvent(today + timedelta(seconds=10), "test_failed"),
-            WorkflowEvent(today + timedelta(seconds=20), "deploy_failed"),
+            WorkflowEvent(today, EventType.BUILD_FAILED),
+            WorkflowEvent(today + timedelta(seconds=10), EventType.TEST_FAILED),
+            WorkflowEvent(today + timedelta(seconds=20), EventType.DEPLOY_FAILED),
         )
 
         result = metric.calculate(events_stream)
@@ -90,9 +93,9 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()
         events_stream = (
-            WorkflowEvent(today, "build_failed"),
-            WorkflowEvent(today + timedelta(seconds=10), "test_failed"),
-            WorkflowEvent(today + timedelta(seconds=20), "deploy_success"),
+            WorkflowEvent(today, EventType.BUILD_FAILED),
+            WorkflowEvent(today + timedelta(seconds=10), EventType.TEST_FAILED),
+            WorkflowEvent(today + timedelta(seconds=20), EventType.DEPLOY_SUCCESS),
         )
 
         result = metric.calculate(events_stream)
@@ -106,10 +109,10 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()
         events_stream = (
-            WorkflowEvent(today, "build_success"),
-            WorkflowEvent(today + timedelta(seconds=20), "deploy_success"),
-            WorkflowEvent(today + timedelta(seconds=30), "build_success"),
-            WorkflowEvent(today + timedelta(seconds=60), "deploy_success"),
+            WorkflowEvent(today, EventType.BUILD_SUCCESS),
+            WorkflowEvent(today + timedelta(seconds=20), EventType.DEPLOY_SUCCESS),
+            WorkflowEvent(today + timedelta(seconds=30), EventType.BUILD_SUCCESS),
+            WorkflowEvent(today + timedelta(seconds=60), EventType.DEPLOY_SUCCESS),
         )
 
         result = metric.calculate(events_stream)
@@ -123,15 +126,15 @@ class LeadTimeCalculatorTests(unittest.TestCase):
         metric = LeadtimeMetricCalculator()
         today = datetime.datetime.today()
         events_stream = (
-            WorkflowEvent(today, "build_success", "pipeline_id1"),
+            WorkflowEvent(today, EventType.BUILD_SUCCESS, "pipeline_id1"),
             WorkflowEvent(
-                today + timedelta(seconds=30), "build_success", "pipeline_id2"
+                today + timedelta(seconds=30), EventType.BUILD_SUCCESS, "pipeline_id2"
             ),
             WorkflowEvent(
-                today + timedelta(seconds=40), "deploy_success", "pipeline_id1"
+                today + timedelta(seconds=40), EventType.DEPLOY_SUCCESS, "pipeline_id1"
             ),
             WorkflowEvent(
-                today + timedelta(seconds=60), "deploy_success", "pipeline_id2"
+                today + timedelta(seconds=60), EventType.DEPLOY_SUCCESS, "pipeline_id2"
             ),
         )
 
