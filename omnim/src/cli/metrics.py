@@ -17,7 +17,6 @@ def metrics(
     metrics: Optional[MetricsOptions] = typer.Option(None, help=""),
     input_file: Optional[Path] = typer.Option(None, exists=True, file_okay=True),
     source: Optional[str] = typer.Option(None),
-    fetch: Optional[str] = typer.Option(None),
 ):
 
     config = Config()

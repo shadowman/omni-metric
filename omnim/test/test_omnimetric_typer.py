@@ -14,7 +14,6 @@ Options:
   --metrics [lt|df|cfr|mttr]
   --input-file PATH
   --source TEXT
-  --fetch TEXT
   """
 
         result = runner.invoke(app, ["metrics", "--help"])
@@ -39,6 +38,8 @@ Options:
             f"Path '{wrong_path}' does not exist."
         )
 
-        result = runner.invoke(app, ["metrics", "--metrics", "lt", "--input-file", wrong_path])
+        result = runner.invoke(
+            app, ["metrics", "--metrics", "lt", "--input-file", wrong_path]
+        )
 
         assert master_output in result.stdout

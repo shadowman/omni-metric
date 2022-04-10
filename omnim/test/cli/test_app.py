@@ -117,8 +117,6 @@ class TestOmniMetricTyperMetricsOutput:
                 "metrics",
                 "--source",
                 "GitHubActionsForOmnimetric",
-                "--fetch",
-                "",
                 "--config-file",
                 config_file_path,
             ],
