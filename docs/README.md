@@ -66,7 +66,7 @@ for calculating the metrics. The first step is to run the following
 command (that used the previous configuration file):
 
 ```
-pipenv run python omnim/src/cli/app.py --source GitHubActionsForOmnimetric --fetch "" --config-file ./config.json
+pipenv run python omnim/src/cli/app.py fetch --source GitHubActionsForOmnimetric --config-file ./config.json
 ```
 
 Note: this is using the Github source, see the section [Available sources](#available-sources).
@@ -80,7 +80,7 @@ Successfully fetched workflow execution from github
 
 ## Run the deployment frequency
 ```bash
-pipenv run python omnim/src/cli/app.py --metrics df --input-file ./data/result.csv
+pipenv run python omnim/src/cli/app.py metrics --metrics df --input-file ./data/result.csv
 ```
 
 ### Troubleshooting
