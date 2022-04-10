@@ -30,3 +30,4 @@ allow_prereleases = true
 
 [scripts]
 test-watch = "ptw ./ -v"
+test = "pytest"
