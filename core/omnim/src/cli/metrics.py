@@ -2,7 +2,6 @@ from pathlib import Path
 from typing import List, Optional
 
 import typer
-
 from omnim.src.application.metrics import calculate_metrics_for_events
 from omnim.src.cli.metric import MetricsOptions
 from omnim.src.loaders.csvloader import CsvEventsLoader

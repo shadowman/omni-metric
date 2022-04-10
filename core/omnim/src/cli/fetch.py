@@ -3,7 +3,6 @@ from pathlib import Path
 from typing import Optional
 
 import typer
-
 from omnim.src.configuration.config import Config
 from omnim.src.repositories.csv_repository import CsvRepository
 from omnim.src.sources.github_actions import GithubActionsSource

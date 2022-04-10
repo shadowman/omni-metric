@@ -3,7 +3,6 @@ import os
 from pathlib import Path
 
 import pytest
-
 from omnim.src.events import EventType
 from omnim.src.metrics.leadtime import WorkflowEvent
 from omnim.src.repositories.csv_repository import CsvRepository

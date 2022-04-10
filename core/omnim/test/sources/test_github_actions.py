@@ -2,7 +2,6 @@ import os
 from unittest.mock import patch
 
 import pytest
-
 from omnim.src.configuration.config import Config
 from omnim.src.exceptions.exceptions import TokenNotFoundException
 from omnim.src.sources.github_actions import GithubActionsSource

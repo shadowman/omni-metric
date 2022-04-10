@@ -2,7 +2,6 @@ import json
 import os
 
 import pytest
-
 from omnim.src.configuration.config import Config
 
 CSV_FILE_TEST = "./data/stored_from_csv.csv"

@@ -1,5 +1,4 @@
 import typer
-
 from omnim.src.cli.fetch import fetch
 from omnim.src.cli.metrics import metrics
 

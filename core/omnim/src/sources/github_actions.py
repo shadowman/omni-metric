@@ -4,7 +4,6 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 import aiohttp
-
 from omnim.src.configuration.config import Config
 from omnim.src.exceptions.exceptions import TokenNotFoundException
 from omnim.src.sources.pipeline_source import PipelineSource

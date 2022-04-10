@@ -1,12 +1,11 @@
 from abc import ABC, abstractmethod
 from datetime import timedelta
+from typing import Optional
 
 from pydantic import BaseModel
-from typing import Optional
 
 
 class MetricResult(ABC):
-
     @abstractmethod
     def __str__(self) -> str:
         raise NotImplementedError("Metric result not implemented yet")
@@ -16,7 +15,6 @@ class MetricResult(ABC):
 
 
 class UnknownMetricResult(MetricResult):
-
     def __str__(self):
         return "General unspecific metric. No result possible"
 

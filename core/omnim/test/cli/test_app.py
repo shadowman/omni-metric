@@ -1,9 +1,8 @@
 from unittest.mock import patch
 
 import pytest
-from typer.testing import CliRunner
-
 from omnim.src.cli.app import app
+from typer.testing import CliRunner
 
 
 @pytest.mark.current
