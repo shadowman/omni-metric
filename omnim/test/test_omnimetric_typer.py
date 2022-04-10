@@ -10,10 +10,8 @@ class TestOmniMetricCommandLineAppTyper:
         master_output = """Usage: root metrics [OPTIONS]
 
 Options:
-  --config-file PATH
   --metrics [lt|df|cfr|mttr]
   --input-file PATH
-  --source TEXT
   """
 
         result = runner.invoke(app, ["metrics", "--help"])

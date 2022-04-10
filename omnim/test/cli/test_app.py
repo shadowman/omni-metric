@@ -74,7 +74,7 @@ class TestOmniMetricTyperMetricsOutput:
         result = self.runner.invoke(
             app,
             [
-                "metrics",
+                "fetch",
                 "--config-file",
                 config_file_path,
                 "--metrics",
@@ -95,7 +95,7 @@ class TestOmniMetricTyperMetricsOutput:
         result = self.runner.invoke(
             app,
             [
-                "metrics",
+                "fetch",
                 "--config-file",
                 config_file_path,
                 "--metrics",
@@ -114,7 +114,7 @@ class TestOmniMetricTyperMetricsOutput:
         result = self.runner.invoke(
             app,
             [
-                "metrics",
+                "fetch",
                 "--source",
                 "GitHubActionsForOmnimetric",
                 "--config-file",
@@ -123,6 +123,7 @@ class TestOmniMetricTyperMetricsOutput:
         )
         assert master_output in result.stdout
 
+    @pytest.mark.skip("this test is not supported anymore, it does too many things")
     def test_runs_deployment_frequency_metric_from_source_when_configuration_for_that_source_is_provided(  # noqa: E501
         self, github_response
     ):
