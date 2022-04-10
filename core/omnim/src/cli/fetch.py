@@ -22,7 +22,7 @@ def fetch(
     events_loader = CsvRepository(input_file)
 
     if source is not None:
-        git_source = GithubActionsSource(config)
+        git_source = GithubActionsSource(config, input_file)
         asyncio.run(git_source.listen_source())
         events_loader = CsvRepository(Path(git_source.target))
         print("Successfully fetched workflow execution from github")

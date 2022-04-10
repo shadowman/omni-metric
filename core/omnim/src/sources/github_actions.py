@@ -32,13 +32,14 @@ class GithubActionsSource(PipelineSource):
     github_url: str
     target: Path
 
-    def __init__(self, config: Config):
+    def __init__(self, config: Config, target: Path):
         self.configure(
             config.user,
             config.token,
             config.repo,
             config.deployment_action_name,
         )
+        self.target = target
 
     def configure(
         self,
@@ -56,7 +57,6 @@ class GithubActionsSource(PipelineSource):
         self.token = token
 
         self.github_url = f"{self.github_URI}/repos/{user}/{repo}/actions/runs"
-        self.target = Path("./data/result.csv")
 
     async def listen_source(self):
         results = await self._pull()

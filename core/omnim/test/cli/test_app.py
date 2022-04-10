@@ -114,6 +114,8 @@ class TestOmniMetricTyperMetricsOutput:
                 "GitHubActionsForOmnimetric",
                 "--config-file",
                 config_file_path,
+                "--input-file",
+                self.data_path
             ],
         )
         assert master_output in result.stdout
