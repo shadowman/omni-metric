@@ -57,7 +57,12 @@ class TestGithubActionsSource:
     async def test_should_store_events_not_create_headers_in_a_target_file_if_it_already_exist(  # noqa: E501
         self, github_response, config
     ):
-        os.remove("./data/whatever.csv")
+
+        try:
+            os.remove("./data/whatever.csv")
+        except OSError:
+            pass
+
         with patch(
             "omnim.src.sources.github_actions.GithubActionsSource._pull",
             return_value=github_response,
