@@ -10,15 +10,6 @@ class CsvEventsLoaderTests(unittest.TestCase):
         super().setUp()
         self.test_csv_loader = CsvEventsLoader("./data/sample.csv")
 
-    def test_it_should_set_a_parametrized_file_to_be_loaded(self):
-        loader = CsvEventsLoader("test")
-        self.assertEqual(loader.file_path, "test")
-
-    def test_it_should_throw_exception_if_file_not_found(self):
-        loader = CsvEventsLoader("test")
-        with self.assertRaises(FileNotFoundError):
-            loader.load()
-
     def test_it_should_load_each_row_as_a_workflow_event(self):
         self.test_csv_loader.load()
 

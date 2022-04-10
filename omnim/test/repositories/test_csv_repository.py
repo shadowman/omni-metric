@@ -2,12 +2,23 @@ import datetime
 import os
 from pathlib import Path
 
+import pytest
+
 from omnim.src.events import EventType
 from omnim.src.metrics.leadtime import WorkflowEvent
 from omnim.src.repositories.csv_repository import CsvRepository
 
 
 class TestCsvRepository:
+    def test_it_should_set_a_parametrized_file_to_be_loaded(self):
+        loader = CsvRepository("test")
+        assert loader.target_file == "test"
+
+    def test_it_should_throw_exception_if_file_not_found(self):
+        loader = CsvRepository("test")
+        with pytest.raises(FileNotFoundError):
+            loader.load()
+
     def test_should_store_events_in_a_target_file(
         self, config, csv_environment
     ):  # noqa: E501
