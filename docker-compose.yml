@@ -1,0 +1,14 @@
+version: "2"
+services:
+  core:
+    build:
+      context: core/
+    volumes:
+      - ./core:/app
+  api:
+    build:
+      context: api/
+    volumes:
+      - ./api:/app
+    ports:
+      - "80:3000"
