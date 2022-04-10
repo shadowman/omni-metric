@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "http-server static/ -p 3000",
+    "serve": "http-server static/ -p 3000 --cors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
