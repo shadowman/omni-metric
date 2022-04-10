@@ -1,10 +1,13 @@
 version: "2"
 services:
   core:
+    working_dir: /app/core
     build:
       context: core/
     volumes:
-      - ./core:/app
+      - ./:/app
+    environment:
+      PIPENV_VENV_IN_PROJECT: "true"
   api:
     build:
       context: api/
