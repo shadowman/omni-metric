@@ -16,3 +16,9 @@ services:
       - ./:/app
     ports:
       - "80:3000"
+  webapp:
+    image: nginx:latest
+    volumes:
+      - ./webapp:/usr/share/nginx/html
+    ports:
+      - "8080:80"
