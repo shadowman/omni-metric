@@ -4,8 +4,29 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pycli = "*"
+aiohttp = "*"
+typer = "*"
+async-timeout = ">=4.0.0"
+pydantic = "*"
 
 [dev-packages]
+pytest-asyncio = ">=0.17.2"
+pytest = "*"
+ipython = "*"
+flake8 = "*"
+pytest-watcher = "*"
+black = "*"
+isort = "*"
+mypy = "*"
+pre-commit = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true
+
+[scripts]
+test-watch = "ptw ./ -v"
