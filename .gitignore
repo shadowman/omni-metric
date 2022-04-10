@@ -132,7 +132,8 @@ dmypy.json
 .pyre/
 .idea/
 
-data/result.csv
 config.json
 
 node_modules/
+
+*.csv
