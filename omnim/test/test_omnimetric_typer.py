@@ -7,30 +7,17 @@ runner = CliRunner()
 
 class TestOmniMetricCommandLineAppTyper:
     def test_has_default_help_message(self):
-        master_output = """Usage: main [OPTIONS]
+        master_output = """Usage: root metrics [OPTIONS]
 
 Options:
   --config-file PATH
   --metrics [lt|df|cfr|mttr]
   --input-file PATH
   --source TEXT
-  --fetch TEXT"""
+  --fetch TEXT
+  """
 
-        result = runner.invoke(app, ["main", "--help"])
-
-        assert master_output in result.stdout
-
-    def test_has_default_help_message_without_arguments(self):
-        master_output = """Usage: main [OPTIONS]
-
-Options:
-  --config-file PATH
-  --metrics [lt|df|cfr|mttr]
-  --input-file PATH
-  --source TEXT
-  --fetch TEXT"""
-
-        result = runner.invoke(app)
+        result = runner.invoke(app, ["metrics", "--help"])
 
         assert master_output in result.stdout
 
@@ -41,7 +28,7 @@ Options:
             f"is not one of 'lt', 'df', 'cfr', 'mttr'"
         )
 
-        result = runner.invoke(app, ["main", "--metrics", wrong_metric])
+        result = runner.invoke(app, ["metrics", "--metrics", wrong_metric])
 
         assert master_output in result.stdout
 
@@ -52,6 +39,6 @@ Options:
             f"Path '{wrong_path}' does not exist."
         )
 
-        result = runner.invoke(app, ["--metrics", "lt", "--input-file", wrong_path])
+        result = runner.invoke(app, ["metrics", "--metrics", "lt", "--input-file", wrong_path])
 
         assert master_output in result.stdout

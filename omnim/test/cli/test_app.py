@@ -18,7 +18,7 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = "Average Build to Deploy Leadtime = 10.0 s\n"
 
         result = self.runner.invoke(
-            app, ["--metrics", "lt", "--input-file", self.data_path]
+            app, ["metrics", "--metrics", "lt", "--input-file", self.data_path]
         )
 
         assert result.stdout == master_output
@@ -28,7 +28,7 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = "Average Deployment Frequency = 1.0 dep/day\n"
 
         result = self.runner.invoke(
-            app, ["--metrics", "df", "--input-file", self.data_path]
+            app, ["metrics", "--metrics", "df", "--input-file", self.data_path]
         )
 
         assert result.stdout == master_output
@@ -37,7 +37,7 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = "Average Change Failure Rate = 0.0 failures/dep\n"
 
         result = self.runner.invoke(
-            app, ["--metrics", "cfr", "--input-file", self.data_path]
+            app, ["metrics", "--metrics", "cfr", "--input-file", self.data_path]
         )
 
         assert result.stdout == master_output
@@ -51,7 +51,7 @@ class TestOmniMetricTyperMetricsOutput:
         )
 
         result = self.runner.invoke(
-            app, ["--metrics", "mttr", "--input-file", self.data_path]
+            app, ["metrics", "--metrics", "mttr", "--input-file", self.data_path]
         )
 
         assert result.stdout == master_output
@@ -61,7 +61,7 @@ class TestOmniMetricTyperMetricsOutput:
         data_path = "./data/mttr_data_stream.csv"
 
         result = self.runner.invoke(
-            app, ["--metrics", "mttr", "--input-file", data_path]
+            app, ["metrics", "--metrics", "mttr", "--input-file", data_path]
         )
 
         assert result.stdout == master_output
@@ -74,6 +74,7 @@ class TestOmniMetricTyperMetricsOutput:
         result = self.runner.invoke(
             app,
             [
+                "metrics",
                 "--config-file",
                 config_file_path,
                 "--metrics",
@@ -94,6 +95,7 @@ class TestOmniMetricTyperMetricsOutput:
         result = self.runner.invoke(
             app,
             [
+                "metrics",
                 "--config-file",
                 config_file_path,
                 "--metrics",
@@ -112,6 +114,7 @@ class TestOmniMetricTyperMetricsOutput:
         result = self.runner.invoke(
             app,
             [
+                "metrics",
                 "--source",
                 "GitHubActionsForOmnimetric",
                 "--fetch",
@@ -135,6 +138,7 @@ class TestOmniMetricTyperMetricsOutput:
             result = self.runner.invoke(
                 app,
                 [
+                    "metrics",
                     "--metrics",
                     "df",
                     "--config-file",
@@ -145,3 +149,18 @@ class TestOmniMetricTyperMetricsOutput:
             )
 
             assert master_output in result.stdout
+
+    @pytest.mark.skip
+    def test_has_default_help_message_without_arguments(self):
+        master_output = """Usage: root metrics [OPTIONS]
+
+Options:
+  --config-file PATH
+  --metrics [lt|df|cfr|mttr]
+  --input-file PATH
+  --source TEXT
+  --fetch TEXT"""
+
+        result = self.runner.invoke(app)
+
+        assert master_output in result.stdout
