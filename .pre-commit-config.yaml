@@ -23,7 +23,7 @@ repos:
         description: 'Running the efficient unit tests with coverage'
         stages: [commit]
         language: system
-        entry: pipenv run pytest --cov ./omnim/src --cov-fail-under=95
+        entry: pipenv run pytest --cov ./omnim/src --cov-fail-under=10
         types: [python]
         pass_filenames: false
         always_run: true
