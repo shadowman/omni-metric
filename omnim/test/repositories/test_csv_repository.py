@@ -10,6 +10,9 @@ from omnim.src.repositories.csv_repository import CsvRepository
 
 
 class TestCsvRepository:
+    def setup(self):
+        self.test_csv_loader = CsvRepository(Path("./data/sample.csv"))
+
     def test_it_should_set_a_parametrized_file_to_be_loaded(self):
         loader = CsvRepository("test")
         assert loader.target_file == "test"
@@ -37,7 +40,6 @@ class TestCsvRepository:
     def test_should_store_events_not_create_headers_in_a_target_file_if_it_already_exist(  # noqa: E501
         self, config, csv_environment
     ):
-
         expected_header = ",".join(["datetime", "event_name", "data"]) + "\n"
         events_stream = WorkflowEvent(datetime.datetime.today(), EventType.BUILD_FAILED)
 
@@ -51,3 +53,35 @@ class TestCsvRepository:
 
             assert content[0] == expected_header
             assert all([line != expected_header for line in content[1:]])
+
+    def test_it_should_load_each_row_as_a_workflow_event(self):
+        self.test_csv_loader.load()
+
+        events = self.test_csv_loader.get_all_events()
+
+        assert 3 == len(events)
+
+    @pytest.mark.skip
+    def test_it_should_load_each_event_date_and_time_correctly(self):
+        self.test_csv_loader.load()
+
+        events = self.test_csv_loader.get_all_events()
+
+        for event in events:
+            assert isinstance(event.datetime, type(datetime))
+
+    def test_it_should_load_event_names_correctly(self):
+        self.test_csv_loader.load()
+
+        events = self.test_csv_loader.get_all_events()
+
+        first_event = events[0]
+        assert first_event.event_type == EventType.BUILD_SUCCESS
+
+    def test_it_should_load_each_event_data_correctly(self):
+        self.test_csv_loader.load()
+
+        events = self.test_csv_loader.get_all_events()
+
+        first_event = events[0]
+        assert first_event.data == "pipeline_id1#1"
