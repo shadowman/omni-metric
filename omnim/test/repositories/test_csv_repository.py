@@ -1,5 +1,6 @@
 import datetime
 import os
+from pathlib import Path
 
 from omnim.src.events import EventType
 from omnim.src.metrics.leadtime import WorkflowEvent
@@ -17,7 +18,7 @@ class TestCsvRepository:
 
         target_file = "./data/stored_from_csv.csv"
 
-        repository = CsvRepository(target_file)
+        repository = CsvRepository(Path(target_file))
         repository.save(events_stream)
 
         assert os.path.isfile(target_file)
@@ -31,7 +32,7 @@ class TestCsvRepository:
 
         target_file = "./data/stored_from_csv.csv"
 
-        repository = CsvRepository(target_file)
+        repository = CsvRepository(Path(target_file))
         repository.save(events_stream)
 
         with open(repository.target_file) as csvfile:
