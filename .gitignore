@@ -134,3 +134,5 @@ dmypy.json
 
 data/result.csv
 config.json
+
+node_modules/
