@@ -10,10 +10,8 @@ from omnim.src.configuration.config import Config
 from omnim.src.loaders.csvloader import CsvEventsLoader
 from omnim.src.metrics.leadtime import WorkflowEvent
 from omnim.src.sources.github_actions import GithubActionsSource
-from omnim.src.cli.app import app
 
 
-@app.command(no_args_is_help=True)
 def metrics(
     config_file: Optional[Path] = typer.Option(None),
     metrics: Optional[MetricsOptions] = typer.Option(None, help=""),
