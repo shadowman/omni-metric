@@ -18,10 +18,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - run: |
-        cd core/
-        echo 'PYTHONPATH=${PYTHONPATH}:${PWD}' >> .env
-        pip install --upgrade pip
-        pip install pipenv
-        pipenv install
-        pipenv install --dev
-        pipenv run pytest
+        cd core/ && echo 'PYTHONPATH=${PYTHONPATH}:${PWD}' >> .env
+        cd core/ && pip install --upgrade pip
+        cd core/ && pip install pipenv
+        cd core/ && pipenv install
+        cd core/ && pipenv install --dev
+        cd core/ && pipenv run pytest
