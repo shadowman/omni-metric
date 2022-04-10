@@ -9,9 +9,10 @@ services:
     environment:
       PIPENV_VENV_IN_PROJECT: "true"
   api:
+    working_dir: /app/api
     build:
       context: api/
     volumes:
-      - ./api:/app
+      - ./:/app
     ports:
       - "80:3000"

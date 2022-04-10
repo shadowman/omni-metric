@@ -15,6 +15,5 @@ RUN pipenv install --system --deploy
 RUN echo 'PYTHONPATH=${PYTHONPATH}:${PWD}' >> .env
 RUN pipenv install
 RUN pipenv install --dev
-RUN pipenv run pytest
 
 CMD ["pipenv", "run", "python", "omnim/src/cli/app.py"]
