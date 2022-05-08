@@ -10,7 +10,12 @@ from omnim.src.metrics.leadtime import WorkflowEvent
 
 def metrics(
     metrics: Optional[MetricsOptions] = typer.Option(None, help=""),
-    input_file: Optional[Path] = typer.Option(None, exists=True, file_okay=True),
+    input_file: Optional[Path] = typer.Option(
+        None,
+        exists=True,
+        file_okay=True,
+    ),
+    start: Optional[str] = typer.Option(None),
 ):
     events_loader = CsvEventsLoader(input_file)
 

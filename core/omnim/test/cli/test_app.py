@@ -5,7 +5,6 @@ from omnim.src.cli.app import app
 from typer.testing import CliRunner
 
 
-@pytest.mark.current
 class TestOmniMetricTyperMetricsOutput:
 
     runner = CliRunner()
@@ -36,21 +35,36 @@ class TestOmniMetricTyperMetricsOutput:
         master_output = "Average Change Failure Rate = 0.0 failures/dep\n"
 
         result = self.runner.invoke(
-            app, ["metrics", "--metrics", "cfr", "--input-file", self.data_path]
+            app,
+            [
+                "metrics",
+                "--metrics",
+                "cfr",
+                "--input-file",
+                self.data_path,
+            ],
         )
 
         assert result.stdout == master_output
 
-    def test_runs_mean_time_to_restore_metric_from_csv_file_and_inform_not_enough_data(
+    def test_runs_mean_time_to_restore_metric_from_csv_file_and_inform_not_enough_data(  # noqa: E501
         self,
     ):  # noqa: E501
         master_output = (
             "This metric returned an empty value. "
-            "It is likely that there was not enough information to compute it\n"
+            "It is likely that there was not enough "
+            "information to compute it\n"
         )
 
         result = self.runner.invoke(
-            app, ["metrics", "--metrics", "mttr", "--input-file", self.data_path]
+            app,
+            [
+                "metrics",
+                "--metrics",
+                "mttr",
+                "--input-file",
+                self.data_path,
+            ],
         )
 
         assert result.stdout == master_output
@@ -115,12 +129,14 @@ class TestOmniMetricTyperMetricsOutput:
                 "--config-file",
                 config_file_path,
                 "--input-file",
-                self.data_path
+                self.data_path,
             ],
         )
         assert master_output in result.stdout
 
-    @pytest.mark.skip("this test is not supported anymore, it does too many things")
+    @pytest.mark.skip(
+        "this test is not supported anymore, it does too many things"
+    )  # noqa: E501
     def test_runs_deployment_frequency_metric_from_source_when_configuration_for_that_source_is_provided(  # noqa: E501
         self, github_response
     ):
