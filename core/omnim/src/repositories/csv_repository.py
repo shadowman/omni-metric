@@ -1,8 +1,8 @@
 import csv
-import datetime
+from datetime import datetime
 from os.path import exists
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from omnim.src.events import EventType
 from omnim.src.metrics.leadtime import WorkflowEvent
@@ -30,10 +30,14 @@ class CsvRepository:
                 quoting=csv.QUOTE_MINIMAL,
             )
             csv_row_writer.writerow(
-                [events_stream.datetime, events_stream.event_type, events_stream.data]
+                [
+                    events_stream.datetime,
+                    events_stream.event_type,
+                    events_stream.data,
+                ]
             )
 
-    def load(self):
+    def load(self, start: Optional[datetime] = None):
         if not exists(self.target_file):
             raise FileNotFoundError(
                 "Please check that the file path provided is correct."
@@ -42,7 +46,10 @@ class CsvRepository:
         with open(self.target_file, newline="") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                event_datetime = datetime.datetime.fromtimestamp(int(row["datetime"]))
+                event_datetime = datetime.fromtimestamp(int(row["datetime"]))
+                if start is not None:
+                    if start > event_datetime:
+                        continue
                 event_name = row["event_name"]
                 event_data = row["data"]
 

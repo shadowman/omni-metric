@@ -36,11 +36,25 @@ class TestCsvRepository:
 
         assert os.path.isfile(target_file)
 
+    @pytest.mark.current
+    def test_should_store_events_whose_timestamp_is_after_the_start_date(self):
+        # Given
+        start = datetime.datetime(2022, 1, 1)
+        self.test_csv_loader.load(start)
+        # When
+        events = self.test_csv_loader.get_all_events()
+
+        # Then
+        assert 0 == len(events)
+
     def test_should_store_events_not_create_headers_in_a_target_file_if_it_already_exist(  # noqa: E501
         self, config, csv_environment
     ):
         expected_header = ",".join(["datetime", "event_name", "data"]) + "\n"
-        events_stream = WorkflowEvent(datetime.datetime.today(), EventType.BUILD_FAILED)
+        events_stream = WorkflowEvent(
+            datetime.datetime.today(),
+            EventType.BUILD_FAILED,
+        )
 
         target_file = "./data/stored_from_csv.csv"
 
