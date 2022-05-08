@@ -47,9 +47,8 @@ class CsvRepository:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 event_datetime = datetime.fromtimestamp(int(row["datetime"]))
-                if start is not None:
-                    if start > event_datetime:
-                        continue
+                if start is not None and start > event_datetime:
+                    continue
                 event_name = row["event_name"]
                 event_data = row["data"]
 

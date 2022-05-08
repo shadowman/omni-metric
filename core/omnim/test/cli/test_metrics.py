@@ -12,7 +12,11 @@ class TestCLIMetricsOutput:
         self,
     ):
         # Given
-        master_output = "Average Deployment Frequency = 0.0 dep/day\n"
+        master_output = (
+            "This metric returned an empty value. "
+            "It is likely that there was not enough "
+            "information to compute it\n"
+        )
 
         # When
         result = self.runner.invoke(

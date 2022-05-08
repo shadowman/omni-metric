@@ -20,10 +20,10 @@ repos:
     hooks:
       - id: pytest-cov
         name: pytest coverage
-        description: 'Running the efficient unit tests with coverage'
+        description: 'Running tests with coverage'
         stages: [commit]
         language: system
-        entry: cd core && pipenv run pytest --cov ./omnim/src --cov-fail-under=10
+        entry:  bash -c 'cd core && pipenv run pytest -v'
         types: [python]
         pass_filenames: false
         always_run: true

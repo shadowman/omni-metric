@@ -1,11 +1,12 @@
+import datetime
 from pathlib import Path
 from typing import List, Optional
 
 import typer
 from omnim.src.application.metrics import calculate_metrics_for_events
 from omnim.src.cli.metric import MetricsOptions
-from omnim.src.loaders.csvloader import CsvEventsLoader
 from omnim.src.metrics.leadtime import WorkflowEvent
+from omnim.src.repositories.csv_repository import CsvRepository
 
 
 def metrics(
@@ -17,10 +18,17 @@ def metrics(
     ),
     start: Optional[str] = typer.Option(None),
 ):
-    events_loader = CsvEventsLoader(input_file)
+    if input_file is None:
+        return None
+
+    events_loader = CsvRepository(input_file)
+
+    start_timestamp = None
+    if start is not None:
+        start_timestamp = datetime.datetime.strptime(start, "%Y-%m-%d")
 
     try:
-        events_loader.load()
+        events_loader.load(start=start_timestamp)
         events: List[WorkflowEvent] = events_loader.get_all_events()
     except Exception as e:
         raise e
